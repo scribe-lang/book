@@ -4,3 +4,4 @@
 - [Installation](./01-install.md)
 - [Hello World!](./02-hello-world.md)
 - [Variables](./03-vars.md)
+- [Datatypes](./04-datatypes.md)
