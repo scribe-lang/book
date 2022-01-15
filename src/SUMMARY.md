@@ -7,3 +7,4 @@
 - [Datatypes](./04-datatypes.md)
 - [Functions](./05-functions.md)
 - [Generics](./06-generics.md)
+- [Conditionals](./07-conditionals.md)
