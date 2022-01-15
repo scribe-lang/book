@@ -18,6 +18,7 @@ There are a variety of functions in Scribe. Some of them are:
 * Intrinsic Functions
 * Associated Functions
 * Callback Functions
+* Variadic Functions
 
 Let's go over each of them.
 
@@ -150,3 +151,69 @@ let main = fn(): i32 {
 Note that the function to which callback is passed **must** have the callback argument with same function signature as the callback function itself.
 
 The special type `any` can be used if desired, but that is more error prone since anything can be provided for `any` instead of just functions with specific signatures.
+
+
+## Variadic Functions
+
+These functions are special in that they have a parameter which is variadic - the function call can have infinite number of arguments in place of the variadic parameter.
+
+There can be only one variadic parameter in a function and it is declared variadic by prepending triple dots (`...`) with its type.
+
+For anyone coming from C, the `printf()` function in C is a variadic function.
+
+Unlike C however, Scribe's variadic parameters do not require any type casting and the compiler always knows the types stored in the variadic parameter.
+
+Combined with the `any` type, variadic parameters can be used to take any provided argument without limitation on the type of the argument.
+This makes variadic functions quite powerful and very useful. The `io.println()` function that we have been using, for example, is a variadic function - it can take an infinite list of comma separated arguments.
+
+For example,
+
+```rs
+let sum = fn(args: ...i32): i32 { // args is a variadic which accepts all arguments of type i32
+	let comptime len = @valen(); // @valen() is an intrinsic which provides the number of variadic arguments (>= 0) with which this function is called
+	let sum = 0;
+	inline for let comptime i = 0; i < len; ++i { // we will learn more about inline loops later; do note that here 'inline' and 'comptime' must be present
+		sum += args[i];
+	}
+	return sum;
+};
+
+let main = fn(): i32 {
+	let s1 = sum(1); // s1 = 1 at runtime
+	let comptime s2 = sum(1, 2, 3); // s2 = 6 at compile time
+	return 0;
+};
+```
+
+Variadic arguments can also be "unpacked" and passed to other variadic functions just by using the variadic parameter name.
+
+For example,
+
+```rs
+let sum = fn(args: ...i32): i32 {
+	let comptime len = @valen();
+	let sum = 0;
+	inline for let comptime i = 0; i < len; ++i {
+		sum += args[i];
+	}
+	return sum;
+};
+
+let pass = fn(data: ...i32): i32 {
+	return sum(data, 5); // unpacks data and passes all the provided variadic arguments, with 5 at the end, to sum()
+};
+
+let main = fn(): i32 {
+	let s1 = pass(1); // s1 = 6 at runtime
+	let comptime s2 = pass(1, 2, 3); // s2 = 11 at compile time
+	return 0;
+};
+```
+
+For those who are accustomed to programming and variadics, feel free to check out the standard library's [std/io](https://github.com/scribe-lang/scribe/blob/main/headers/std/io.sc) module, which contains multiple variadic functions.
+
+# Conclusion
+
+Well, that is fundamentally how functions in Scribe work. It's recommended to write some sample programs to understand and ease into them.
+
+Next up, we'll be looking at Generics.
