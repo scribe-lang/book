@@ -204,6 +204,8 @@ let arr3 = @array(A, 10); // 1D (size: 10) array of type structure A
 let data1 = arr3[1].i;    // data in arr3's member 'i' at the first index
 ```
 
+Scribe does not have a specific array type notation (usually something like `int[5]` in most languages). Instead, in Scribe, arrays are passed around as pointers themselves.
+
 An important thing to note about arrays in Scribe is that they are always initialized to zero values. That is, unlike C, the array values are never undefined.
 
 ## Pointers
@@ -228,6 +230,52 @@ let main = fn(): i32 {
 	let arr = c.malloc(i32, 10); // allocate memory equal to 10 i32's at runtime
 	arr[1] = 5; // set value 5 at index 1 of arr
 	c.free(i32, arr); // deallocate memory which was allocated by malloc
+	return 0;
+};
+```
+
+## Special Types
+
+Scribe contains some special types for specific use cases. These are a bit advanced and must not be used unless needed (you will know if they're needed).
+
+These types are used solely in function signatures. As such, they are not used anywhere else.
+
+### Type
+
+`type` is a special type, a variable of which can contain a type. This is all compile time only and no code is generates for this.
+This is used with generics (more on generics later) to pass datatypes as argument. A variable of type `type` **must** be declared `comptime`.
+
+This is how `c.malloc()` function, used above, works. We can pass `i32` type to malloc because its signature's first parameter is of type `type`.
+
+For example,
+
+```rs
+let f = fn(comptime T: type, data: T): T {
+	return data * data;
+};
+
+let main = fn(): i32 {
+	let p = f(i32, 10);  // p is of type i32, with value 100
+	let q = f(f32, 2.5); // q is of type f32, with value 6.25
+	return 0;
+};
+```
+
+### Any
+
+`any`, as you may have guessed, allows variable of any type to be passed to a function.
+If used as return type, it allows the compiler to deduce what type is being returned by the function through the return statements present inside the function.
+
+```rs
+let f = fn(data: any): any {
+	return data * data;
+};
+
+let main = fn(): i32 {
+	let p = f(i32, 10);  // p is of type i32, with value 100
+	let q = f(f32, 2.5); // q is of type f32, with value 6.25
+	let comptime a = f(i32, 10);  // a is of type i32, with value 100, set at compile time
+	let comptime b = f(f32, 2.5); // b is of type f32, with value 6.25, set at compile time
 	return 0;
 };
 ```
