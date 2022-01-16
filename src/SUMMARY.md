@@ -8,3 +8,5 @@
 - [Functions](./05-functions.md)
 - [Generics](./06-generics.md)
 - [Conditionals](./07-conditionals.md)
+- [Loops](./08-loops.md)
+- [Defer](./09-defer.md)

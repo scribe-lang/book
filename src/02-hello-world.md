@@ -19,7 +19,7 @@ Let's break it down a bit.
 
 For dealing with any form of console I/O, we require the `std/io` module in our program. This module defines all the necessary functions and variables used to perform console I/O.
 
-To import a module, we use the `@import(<module name>)` function and create a variable (`io`) from the result of that function. More about creating variables in the next section.
+To import a module, we use the `@import(<module name>)` function and create a variable (`io`) from the result of that function. More about creating variables in the next chapter.
 
 ## The Main Function
 
