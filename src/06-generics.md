@@ -95,7 +95,7 @@ let main = fn(): i32 {
 
 In Scribe, many data structures are made using generic structures and functions like:
 
-* [std/vector](https://github.com/scribe-lang/scribe/blob/main/headers/std/vec.sc),
+* [std/vec](https://github.com/scribe-lang/scribe/blob/main/headers/std/vec.sc),
 * [std/map](https://github.com/scribe-lang/scribe/blob/main/headers/std/map.sc), and
 * [std/linked_list](https://github.com/scribe-lang/scribe/blob/main/headers/std/linked_list.sc)
 
