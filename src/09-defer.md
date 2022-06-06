@@ -20,10 +20,10 @@ For example,
 let c = @import("std/c");
 
 let main = fn(): i32 {
-	let arr1 = c.malloc(i32, 10); // allocate 10x i32's
-	let arr2 = c.malloc(f64, 20); // allocate 20x f64's
-	defer c.free(i32, arr1);
-	defer c.free(f64, arr2);
+	let arr1 = mem.alloc(i32, 10); // allocate 10x i32's
+	let arr2 = mem.alloc(f64, 20); // allocate 20x f64's
+	defer mem.free(i32, arr1);
+	defer mem.free(f64, arr2);
 
 	if true {
 		// both frees would be added here automatically
@@ -34,7 +34,7 @@ let main = fn(): i32 {
 };
 ```
 
-Note that the deferred expressions are added in the **reverse** order of their usage. In the above example, the `c.free()`'s will be added before the returns such that `arr2` is free'd first.
+Note that the deferred expressions are added in the **reverse** order of their usage. In the above example, the `mem.free()`'s will be added before the returns such that `arr2` is free'd first.
 
 `defer` is not limited to a function. It actually works on scopes, so something like this is correct too:
 
@@ -44,11 +44,11 @@ let io = @import("std/io");
 
 let main = fn(): i32 {
 	for let i = 0; i < 10; ++i {
-		let arr = c.malloc(i32, i + 1);
-		defer c.free(i32, arr);
+		let arr = mem.alloc(i32, i + 1);
+		defer mem.free(i32, arr);
 		let addr = @as(u64, arr);
 		io.println("Allocated address: ", addr);
-		// c.free() is called here
+		// mem.free() is called here
 	}
 	return 0;
 };

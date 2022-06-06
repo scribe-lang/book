@@ -227,9 +227,9 @@ let main = fn(): i32 {
 	let data_a = *ptr_a;
 	*ptr_a = 10; // now a is also 10
 
-	let arr = c.malloc(i32, 10); // allocate memory equal to 10 i32's at runtime
+	let arr = mem.alloc(i32, 10); // allocate memory equal to 10 i32's at runtime
 	arr[1] = 5; // set value 5 at index 1 of arr
-	c.free(i32, arr); // deallocate memory which was allocated by malloc
+	mem.free(i32, arr); // deallocate memory which was allocated by malloc
 	return 0;
 };
 ```
@@ -245,7 +245,7 @@ These types are used solely in function signatures. As such, they are not used a
 `type` is a special type, a variable of which can contain a type. This is all compile time only and no code is generates for this.
 This is used with generics (more on generics later) to pass datatypes as argument. A variable of type `type` **must** be declared `comptime`.
 
-This is how `c.malloc()` function, used above, works. We can pass `i32` type to malloc because its signature's first parameter is of type `type`.
+This is how `mem.alloc()` function, used above, works. We can pass `i32` type to malloc because its signature's first parameter is of type `type`.
 
 For example,
 
