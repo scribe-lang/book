@@ -1,0 +1,1199 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Scribe Programming Language</title>
+        <meta name="robots" content="noindex" />
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="00-intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="01-install.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="02-hello-world.html"><strong aria-hidden="true">3.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="03-vars.html"><strong aria-hidden="true">4.</strong> Variables</a></li><li class="chapter-item expanded "><a href="04-datatypes.html"><strong aria-hidden="true">5.</strong> Datatypes</a></li><li class="chapter-item expanded "><a href="05-functions.html"><strong aria-hidden="true">6.</strong> Functions</a></li><li class="chapter-item expanded "><a href="06-generics.html"><strong aria-hidden="true">7.</strong> Generics</a></li><li class="chapter-item expanded "><a href="07-conditionals.html"><strong aria-hidden="true">8.</strong> Conditionals</a></li><li class="chapter-item expanded "><a href="08-loops.html"><strong aria-hidden="true">9.</strong> Loops</a></li><li class="chapter-item expanded "><a href="09-defer.html"><strong aria-hidden="true">10.</strong> Defer</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Scribe Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>Welcome to the Scribe reference manual. Using this documentation, you will be able to understand and use the language for developing your own code.</p>
+<p>This manual also includes the documentation for standard library, along with usage examples.</p>
+<h2 id="the-language"><a class="header" href="#the-language">The Language</a></h2>
+<p>Scribe is a statically typed, fully compiled programming language that (currently) transpiles to C code, which is used to generate native binaries.</p>
+<p>It provides modern features like:</p>
+<ul>
+<li>Compile time code execution</li>
+<li>Generics (templates)
+While providing the programmer with absolute control - there is no Garbage Collection, automatic memory management, or a runtime.
+In essence, the language can be considered an extension to C, with a different (but coherent) syntax.</li>
+</ul>
+<p>Considering its features, Scribe finds most usefulness in areas related to systems software - developing high performance code with minimal memory footprint.</p>
+<p>Now let's start with the installation of the Scribe compiler!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="scribe-compiler-installation"><a class="header" href="#scribe-compiler-installation">Scribe Compiler Installation</a></h1>
+<h2 id="prerequisites"><a class="header" href="#prerequisites">Prerequisites</a></h2>
+<ul>
+<li>CMake build system (&gt;= <code>3.21.1</code>)</li>
+<li>C++17 standard conforming compiler (GCC, LLVM, etc.)</li>
+</ul>
+<h2 id="steps"><a class="header" href="#steps">Steps</a></h2>
+<ol>
+<li>Clone the Scribe repository - <a href="https://github.com/scribe-lang/scribe.git">scribe-lang/scribe</a></li>
+<li>Go to the cloned repository and create a <code>build</code> directory.</li>
+<li>Go into the <code>build</code> directory and invoke the build commands:</li>
+</ol>
+<pre><code class="language-bash">cmake .. -DCMAKE_BUILD_TYPE=Release &amp;&amp; make -j install
+</code></pre>
+<ol start="4">
+<li>This will install the compiler and its libraries in <code>$PREFIX_DIR</code> diectory (default: <code>$HOME/.scribe</code>).</li>
+<li>To run the compiler without specifying the path, add <code>$PREFIX_DIR/bin</code> to <code>$PATH</code>.</li>
+<li>That's it! The scribe compiler is now ready for use.</li>
+</ol>
+<h2 id="cmake-environment-variables"><a class="header" href="#cmake-environment-variables">CMake Environment Variables</a></h2>
+<h3 id="cxx"><a class="header" href="#cxx">$CXX</a></h3>
+<p>This variable is used for specifying the C++ compiler if you do not want to use the ones auto decided by the script, which uses <code>g++</code> by default for all operating systems except Android and BSD, for which it uses <code>clang++</code>.</p>
+<p>For example, to explicitly use <code>clang++</code> compiler on an ubuntu (linux) machine, you can use:</p>
+<pre><code class="language-bash">CXX=clang++ cmake .. -DCMAKE_BUILD_TYPE=Release &amp;&amp; make install
+</code></pre>
+<h3 id="prefix_dir"><a class="header" href="#prefix_dir">$PREFIX_DIR</a></h3>
+<p>This variable will allow you to set a <code>PREFIX_DIR</code> directory for installation of the language after the build.</p>
+<p><strong>NOTE</strong> that once the script is run with a <code>PREFIX_DIR</code>, manually moving the generated files to desired directories will not work since Scribe's codebase uses this <code>PREFIX_DIR</code> internally itself.</p>
+<p>Generally, the <code>/usr</code> or <code>/usr/local</code> directories are used for setting the <code>PREFIX_DIR</code>, however that is totally up to you. Default value for this is <code>$HOME/.scribe</code>.</p>
+<p>Scribe compiler binary can be found as <code>$PREFIX_DIR/bin/scribe</code>.</p>
+<p>An example usage is:</p>
+<pre><code class="language-bash">PREFIX_DIR=/usr/local cmake .. -DCMAKE_BUILD_TYPE=Release &amp;&amp; make install
+</code></pre>
+<p>That concludes the compiler installation! Now you're ready to compile scribe programs, and we can start writing our first program: Hello World!</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="hello-world"><a class="header" href="#hello-world">Hello World!</a></h1>
+<p>Here is a simple Hello World program written in Scribe.</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	io.println(&quot;Hello World&quot;);
+	return 0;
+};
+</code></pre>
+<p>That's it!</p>
+<p>Let's break it down a bit.</p>
+<h2 id="importing-a-module"><a class="header" href="#importing-a-module">Importing A Module</a></h2>
+<p>For dealing with any form of console I/O, we require the <code>std/io</code> module in our program. This module defines all the necessary functions and variables used to perform console I/O.</p>
+<p>To import a module, we use the <code>@import(&lt;module name&gt;)</code> function and create a variable (<code>io</code>) from the result of that function. More about creating variables in the next chapter.</p>
+<h2 id="the-main-function"><a class="header" href="#the-main-function">The Main Function</a></h2>
+<p>In any program, there must be a <code>main</code> function which is the <code>entry point</code> for the execution of the code. In other words, when you run the code, this is where the code logic will start executing from.</p>
+<p>To create a function, we create a variable - name of the function, with the function expression as value.</p>
+<p>The function expression is the <code>fn</code> keyword, followed by its signature <code>(&lt;arguments&gt;): &lt;return type&gt;</code>, followed by its body enclosed in braces (<code>{...}</code>), terminated by the semicolon (<code>;</code>).</p>
+<p>This function returns an <code>i32</code> - a <code>32 bit integer</code> data.</p>
+<h2 id="displaying-hello-world"><a class="header" href="#displaying-hello-world">Displaying Hello World</a></h2>
+<p>To display something on the console, the <code>println(...)</code> function inside the <code>io</code> module is called.
+To call a function residing inside a module, we use club the module name and function using the dot (<code>.</code>) operator.</p>
+<p>Whatever we want displayed via println, we provide it as an argument to the function. For our purposes, we passed the string <code>&quot;Hello World&quot;</code>.</p>
+<h2 id="returning-from-function"><a class="header" href="#returning-from-function">Returning From Function</a></h2>
+<p>Since the <code>main</code> function returns an <code>i32</code>, we must return a value of that type. Here, we return <code>0</code> which for command line, basically means that the program exited successfully (exit status).</p>
+<h1 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h1>
+<p>That's all! That's how you write a simple Hello World program in Scribe.</p>
+<p>To run this program, save it in a file (say, <code>hello.sc</code>) and run the compiler on it using the following command: <code>scribe hello.sc</code>.</p>
+<p>That will generate an executable binary named <code>hello</code> in the current directory, which can be run like this: <code>./hello</code>.</p>
+<p>That will produce the following output:</p>
+<pre><code>Hello World
+</code></pre>
+<p>Next, we will understand how variables in Scribe work.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="creating-variables"><a class="header" href="#creating-variables">Creating Variables</a></h1>
+<p>Variables are pretty much aliases that the programmers make for using memory to allocate some data.
+Obviously, we do not want, for our sanity's sake, to use memory addresses directly for accessing our data.
+That is really complicated, hard to remember, and an absolute nightmare to maintain.
+So instead, we assign these memory locations, containing our data, names which we can use in our programs as needed.</p>
+<p>As such, variables are a crucial component of a programming language.</p>
+<p>There are two ways to create variables in Scribe.</p>
+<h2 id="definition"><a class="header" href="#definition">Definition</a></h2>
+<p>To define a variable in Scribe, the <code>let &lt;identifier&gt; = &lt;expression&gt;;</code> pattern is used.</p>
+<p>The identifier will be the variable name, followed by the value expression after the assignment (<code>=</code>) symbol, terminated by a semicolon (<code>;</code>).</p>
+<p>Since Scribe is a statically typed language, the type of each variable is necessary. However, in this (definition) format, the datatype is <strong>inferred</strong>.
+In other words, the compiler can deduce the type of the variable from the expression.</p>
+<p>This is the syntax used to import the <code>std/io</code> module in the Hello World example.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let an_int = 20;                   // type: i32
+let a_string = &quot;this is a string&quot;; // type: *const i8 (just like C)
+let a_flt = 2.5;                   // type: f32 (float)
+</code></pre>
+<h2 id="declaration"><a class="header" href="#declaration">Declaration</a></h2>
+<p>To declare a variable, the <code>let &lt;identifer&gt;: &lt;type&gt;;</code> pattern is used.</p>
+<p>As before, the identifier will be the variable name, followed by the datatype of the variable after a colon (<code>:</code>), terminated by a semicolon (<code>;</code>).</p>
+<p>Here, we explicitly mention the datatype of the variable since there is no expression to deduce it from.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let an_int: u64; // type: u64 (unsigned 64 bit integer)
+let a_flt: f64;  // type: f64 (64 bit float)
+</code></pre>
+<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
+<p>Both the styles can be merged as well, as long as the <code>type</code> and <code>expression</code>'s type are same. The only exception is automatic type casting between primitive datatypes.</p>
+<p>For example, if you want to create a variable with value <code>5</code> (which has type: <code>i32</code>), but of type: <code>u64</code>, you can do:</p>
+<pre><code class="language-rs">let u64int: u64 = 5;
+</code></pre>
+<h1 id="variable-reassignment"><a class="header" href="#variable-reassignment">Variable (Re)assignment</a></h1>
+<p>A variable won't quite be a &quot;variable&quot; if its value cannot be changed. Therefore, to change (or set) the value of a variable, you can use the variable name, followed by the assignment (<code>=</code>) symbol, followed by the value.</p>
+<p>Do note that the datatype of the variable can never be changed after a variable is created. Hence, for (re)assignment, the datatype of the new value must be the same as the one used/inferred when creating the variable.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let a = 5;
+a = 10; // valid
+a = &quot;a string&quot;; // invalid
+</code></pre>
+<p>Similarly,</p>
+<pre><code class="language-rs">let a: u64;
+a = 10; // valid
+a = &quot;a string&quot;; // invalid
+a = 5.0; // valid
+</code></pre>
+<h2 id="type-coercion"><a class="header" href="#type-coercion">Type Coercion</a></h2>
+<p>You may be wondering how is <code>a = 5.0;</code> valid. The datatype of a is <code>u64</code>, while that of <code>5.0</code> is <code>f32</code>.</p>
+<p>The reason is that the compiler can automatically &quot;coerce&quot; between primitive (<code>i1, i8, i16, i32, i64, u8, u16, u32, u64, f32, f64</code>) types.
+In other words, the data from these types can be used with a value/variable of another of these types.</p>
+<p>This does come at a loss of data itself (about which more can be found on the Internet), therefore one must be careful when writing code that can be automatically type coerced.</p>
+<h1 id="variable-scope"><a class="header" href="#variable-scope">Variable Scope</a></h1>
+<p>The scope of a variable defines its <code>lifetime</code> - when is it created to when it is destroyed. Scribe, like many languages, uses <code>braces</code> (<code>{</code> and <code>}</code>) to define blocks of code.
+Any variable has its lifetime bound to this block - it cannot be used outside this block.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let a = 5;
+</code></pre>
+<p>This is globally scoped - not contained within any block. Therefore, this variable can be used anywhere after its creation.</p>
+<p>Another example:</p>
+<pre><code class="language-rs">let main = fn(): i32 {
+	let a = 5;
+};
+</code></pre>
+<p>Here, the variable <code>a</code> can be used anywhere <strong>within</strong> the braces of the <code>main</code> function (and of course, <strong>after</strong> the creation).</p>
+<p>Scribe also supports <code>variable shadowing</code>. That is, if there is a variable in a parent block, a new variable can be created of the same name, within a new block, inside the parent block.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let main = fn(): i32 {
+	let a = 5;
+	{
+		let a = &quot;a string&quot;;
+	}
+};
+</code></pre>
+<p>The above code is valid. Within the <code>main</code> function's block, the integer variable <code>a</code> is usable. And within the block inside the <code>main</code> function, the string variable <code>a</code> is usable.</p>
+<h1 id="variable-names"><a class="header" href="#variable-names">Variable Names</a></h1>
+<p>One last important thing about variables is their name. Scribe defines specific rules based on which you can name variables, quite similar to most other languages.
+These rules are that variable names:</p>
+<ul>
+<li>Must begin with an alphabet (irrelevant of the case) or underscore</li>
+<li>Can contain numbers anywhere except the first character</li>
+<li>Cannot contain any symbol other than alphabets, numbers, and underscores.</li>
+</ul>
+<h1 id="variable-type-modifiers"><a class="header" href="#variable-type-modifiers">Variable Type Modifiers</a></h1>
+<p>Type modifiers alter the working of a variable - what they store, how they work, etc.</p>
+<p>There are 4 type modifiers in Scribe:</p>
+<ul>
+<li>Static</li>
+<li>Reference</li>
+<li>Constant</li>
+<li>Comptime</li>
+</ul>
+<h2 id="static"><a class="header" href="#static">Static</a></h2>
+<p>The static modifier allows the variable to be stored in global storage - the variable is created only once.
+If such a variable is present inside a function, the variable will be initialized only once and it will maintain its value across function calls.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let f = fn(): i32 {
+	let static x = 5;
+	return x++;
+};
+
+let main = fn(): i32 {
+	io.println(f()); // prints 5
+	io.println(f()); // prints 6
+	io.println(f()); // prints 7
+	return 0;
+};
+</code></pre>
+<h2 id="reference"><a class="header" href="#reference">Reference</a></h2>
+<p>Reference variables are the same as in C++ - they are references to other variables. In other words, reference variables can be considered as aliases to other variables.</p>
+<p>These variables are created by using <code>&amp;</code> with the type.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let f = fn(data: &amp;i32) {
+	data = 10;
+};
+
+let main = fn(): i32 {
+	let a = 5;
+	f(a);
+	// now a is 10
+	return 0;
+};
+</code></pre>
+<h2 id="constant"><a class="header" href="#constant">Constant</a></h2>
+<p>Variables, in general, can be modified. However, there are times when the programmer does not want a variable to be modifiable - it must stay constant. That's what the constant modifier allows.</p>
+<p>Constant variables, once created, can never be modified again. Attempting to modify them is a compilation error.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let main = fn(): i32 {
+	let const i = 10;
+	i = 20; // error: i is a constant
+	return 0;
+};
+</code></pre>
+<h2 id="comptime"><a class="header" href="#comptime">Comptime</a></h2>
+<p>Scribe contains a pretty nifty and useful feature - comptime variables. A comptime variable is special in the sense that the value of such a variable is evaluated during the code compilation.
+Hence, some conditions apply for a variable to be allowed to be comptime:</p>
+<ol>
+<li>There must be a value expression for the variable</li>
+<li>The value expression must be able to be evaluated during compile time itself - it cannot contain data that cannot be computed during compilation</li>
+</ol>
+<p>For example,</p>
+<pre><code class="language-rs">let comptime a = 50; // valid - 50 is a value which is known by the compiler
+let f = fn(x: i32): i32 {
+	return x * 5 + 25;
+};
+
+let comptime b = f(10); // valid - function call is provided a value known by the compiler, and everything inside the function body is computable by the compiler
+
+let io = @import(&quot;std/io&quot;);
+
+let f2 = fn(x: i32): i32 {
+	io.println(x);
+	return x * 5 + 25;
+};
+
+let comptime c = f2(10); // invalid - io.println() does not work at compile time
+
+let arr = @array(i32, 10);
+
+let comptime x = arr[1]; // valid - @array() creates an array and initializes it to zero at compile time
+</code></pre>
+<h1 id="conclusion-1"><a class="header" href="#conclusion-1">Conclusion</a></h1>
+<p>Well, that is basically how variables, their reassignment, and their scopes, work. Not much to learn or understand and pretty easy - which is the goal!</p>
+<p>Next, we'll understand the concept of datatypes and see some of the fundamental (primitive) datatypes in Scribe.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="datatypes"><a class="header" href="#datatypes">Datatypes</a></h1>
+<p>Any data that exists must have a type associated with it, and since Scribe is statically typed, these datatypes must be known when the program is compiled.</p>
+<p>Datatypes are abstractions over binary sequences that define what kind of data a variable contains, and how that data is represented in memory.</p>
+<p>If you have any prior experience in programming, you probably know datatypes quite well.</p>
+<p>Core datatypes in Scribe are:</p>
+<table><thead><tr><th>Types in C</th><th>Scribe Equivalent</th></tr></thead><tbody>
+<tr><td>void</td><td>void</td></tr>
+<tr><td>bool</td><td>i1</td></tr>
+<tr><td>char</td><td>i8</td></tr>
+<tr><td>short</td><td>i16</td></tr>
+<tr><td>int</td><td>i32</td></tr>
+<tr><td>long int</td><td>i64</td></tr>
+<tr><td>unsigned char</td><td>u8</td></tr>
+<tr><td>unsigned short</td><td>u16</td></tr>
+<tr><td>unsigned int</td><td>u32</td></tr>
+<tr><td>unsigned long int</td><td>u64</td></tr>
+<tr><td>float</td><td>f32</td></tr>
+<tr><td>double</td><td>f64</td></tr>
+</tbody></table>
+<p>Similar to C, Scribe contains pointers as well.</p>
+<p>And the string literals are represented as <code>*const i8</code> (equivalent to <code>const char *</code> in C).</p>
+<p>Let's dive a bit into the core datatypes.</p>
+<h1 id="core-datatypes---primitive-types"><a class="header" href="#core-datatypes---primitive-types">Core Datatypes - Primitive Types</a></h1>
+<h2 id="integers"><a class="header" href="#integers">Integers</a></h2>
+<p>Scribe contains a total of 9 integer types varying in bit count and signed vs unsigned.</p>
+<p>The signed variants are: <code>i1</code>, <code>i8</code>, <code>i16</code>, <code>i32</code>, and <code>i64</code>. The unsigned variants are: <code>u8</code>, <code>u16</code>, <code>u32</code>, and <code>u64</code>.</p>
+<p>Depending on requirement, anyone of these can be used.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = 32;      // type: i32
+let b: u64 = 64; // type: u64
+let c = true;    // type: i1
+</code></pre>
+<h2 id="floating-points"><a class="header" href="#floating-points">Floating Points</a></h2>
+<p>There are 2 floating-point types in Scribe - <code>f32</code> and <code>f64</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = 3.2;      // type: f32
+let b: f64 = 6.4; // type: f64
+let c = 3.0;      // type: f32
+</code></pre>
+<p>The decimal point (<code>.</code>) is necessary to differentiate between an integer and a floating-point number.</p>
+<h2 id="booleans"><a class="header" href="#booleans">Booleans</a></h2>
+<p>In Scribe, booleans are represented using the <code>i1</code> type. <code>bool</code> is available as well and is an alias to <code>i1</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = true;        // type: i1
+let b: bool = false; // type: i1
+let c: i1 = true;    // type: i1
+</code></pre>
+<h2 id="characters"><a class="header" href="#characters">Characters</a></h2>
+<p>Characters are nothing but <code>i8</code> in Scribe. However, similar to C, characters are represented within single quotes (<code>'</code>).
+These characters are byte-sized and no more than one character can be present within the single quotes.</p>
+<p>Therefore, unicode characters must be defined as strings (within double-quotes).</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = 'a'; // type: i8
+</code></pre>
+<h2 id="strings"><a class="header" href="#strings">Strings</a></h2>
+<p>The fundamental &quot;string&quot; in Scribe is the same as in C - pointer to i8 (char). All string literals have the type <code>*const i8</code> (C's equivalent to <code>const char *</code>).</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = &quot;Hello World&quot;; // type: *const i8
+</code></pre>
+<p>Scribe, unlike C however, also contains a <code>String</code> type in standard library. The <code>String</code> type and C-style strings can be converted to each other using provided functions (more in the String standard library chapter of this manual).</p>
+<h2 id="enums"><a class="header" href="#enums">Enums</a></h2>
+<p>Similar to C, Scribe contains enums which have integer values. However unlike C, enum variables cannot be used by themselves. They must be preceded by the enum name and dot (<code>.</code>).</p>
+<p>This allows for having same enum tags across multiple enums without them clashing with each other.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = enum {
+	ZERO,
+	ONE,
+	TWO
+};
+
+let B = enum {
+	ZERO, // no clash here
+	FIRST,
+	SECOND,
+};
+
+let zero_in_a = A.ZERO;
+let zero_in_b = B.ZERO;
+
+let main = fn(): i32 {
+	let t = A.ONE == B.FIRST; // true - both contain value 1
+	let f = A.ONE == B.ZERO;  // false - 1 != 0
+	return 0;
+};
+</code></pre>
+<h2 id="structures"><a class="header" href="#structures">Structures</a></h2>
+<p>Scribe provides structures as a data structure to pack multiple (existing) types/structures into a single unit. Similar to C, structure members are accessed using the dot (<code>.</code>) operator.</p>
+<p>To instantiate a structure, the structure is &quot;called&quot; using braces (<code>{...}</code>) with the member values as arguments.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = struct {
+	i: i32;
+	f: f64;
+};
+
+let B = struct {
+	u: u64;
+	a: A; // B contains variable a, which is of type structure A
+};
+
+let main = fn(): i32 {
+	let a = A{3, 2.5};
+	let b = B{1, a};
+	let c = B{10, A{3, 5.0}};
+	let p = a.i + b.u;
+	let q = a.f + b.a.f;
+	let r = c.u + c.a.f;
+	return 0;
+};
+</code></pre>
+<p>Unlike C however, pointers to structures are deduced internally, so even for structure pointers, the dot (<code>.</code>) operator applies (no arrow (<code>-&gt;</code>) or dereference (<code>*</code>) operator required).
+We will see this behavior when we understand pointers in Scribe.</p>
+<p>Scribe also allows for &quot;member functions&quot; for structures. However, the term &quot;member functions&quot; is an incorrect term for Scribe because these functions are not defined inside the structure itself.
+In this language, functions can be <strong>associated</strong> to structures, hence referred to as &quot;associated functions&quot;. These functions work on structures, but can be defined anywhere after the structure itself is created.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = struct {
+	i: i32;
+	f: f64;
+};
+
+let getI in A = fn(): i32 {
+	return self.i; // every associated function will have a &quot;self&quot; variable which is a reference to the struct (instance) to which the function is associated
+};
+
+let main = fn(): i32 {
+	let a = A{1, 2.5};
+	let x = a.getI(); // x = 1
+	return 0;
+};
+</code></pre>
+<h2 id="arrays"><a class="header" href="#arrays">Arrays</a></h2>
+<p>Scribe provides the ability to create arrays - a contiguous sequential collection of data of a single structure/type.
+The array size must be known at compile time, that is, the array length must be known when writing the code itself.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let arr1 = @array(i32, 10);     // 1D (size: 10) array of type i32
+let arr2 = @array(i32, 10, 10); // 2D (size: 10x10) array of type i32
+
+let A = struct {
+	i: i32;
+	f: f64;
+};
+
+let arr3 = @array(A, 10); // 1D (size: 10) array of type structure A
+let data1 = arr3[1].i;    // data in arr3's member 'i' at the first index
+</code></pre>
+<p>Scribe does not have a specific array type notation (usually something like <code>int[5]</code> in most languages). Instead, in Scribe, arrays are passed around as pointers themselves.</p>
+<p>An important thing to note about arrays in Scribe is that they are always initialized to zero values. That is, unlike C, the array values are never undefined.</p>
+<h2 id="pointers"><a class="header" href="#pointers">Pointers</a></h2>
+<p>Pointers allow the use of heap memory to dynamically (at runtime) allocate memory which can be of variable size.
+These variables usually store either memory addresses to other variables, or the memory address to some data on the heap.
+They may also not point to any data - when their value is zero (<code>nil</code>).</p>
+<p>Note that any memory allocated during runtime by the program must be deallocated by the program as well.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let c = @import(&quot;std/c&quot;); // contains C functions
+
+let main = fn(): i32 {
+	let a = 5;
+	let ptr_a = &amp;a;
+	let data_a = *ptr_a;
+	*ptr_a = 10; // now a is also 10
+
+	let arr = mem.alloc(i32, 10); // allocate memory equal to 10 i32's at runtime
+	arr[1] = 5; // set value 5 at index 1 of arr
+	mem.free(i32, arr); // deallocate memory which was allocated by malloc
+	return 0;
+};
+</code></pre>
+<h2 id="special-types"><a class="header" href="#special-types">Special Types</a></h2>
+<p>Scribe contains some special types for specific use cases. These are a bit advanced and must not be used unless needed (you will know if they're needed).</p>
+<p>These types are used solely in function signatures. As such, they are not used anywhere else.</p>
+<h3 id="type"><a class="header" href="#type">Type</a></h3>
+<p><code>type</code> is a special type, a variable of which can contain a type. This is all compile time only and no code is generates for this.
+This is used with generics (more on generics later) to pass datatypes as argument. A variable of type <code>type</code> <strong>must</strong> be declared <code>comptime</code>.</p>
+<p>This is how <code>mem.alloc()</code> function, used above, works. We can pass <code>i32</code> type to malloc because its signature's first parameter is of type <code>type</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let f = fn(comptime T: type, data: T): T {
+	return data * data;
+};
+
+let main = fn(): i32 {
+	let p = f(i32, 10);  // p is of type i32, with value 100
+	let q = f(f32, 2.5); // q is of type f32, with value 6.25
+	return 0;
+};
+</code></pre>
+<h3 id="any"><a class="header" href="#any">Any</a></h3>
+<p><code>any</code>, as you may have guessed, allows variable of any type to be passed to a function.
+If used as return type, it allows the compiler to deduce what type is being returned by the function through the return statements present inside the function.</p>
+<pre><code class="language-rs">let f = fn(data: any): any {
+	return data * data;
+};
+
+let main = fn(): i32 {
+	let p = f(i32, 10);  // p is of type i32, with value 100
+	let q = f(f32, 2.5); // q is of type f32, with value 6.25
+	let comptime a = f(i32, 10);  // a is of type i32, with value 100, set at compile time
+	let comptime b = f(f32, 2.5); // b is of type f32, with value 6.25, set at compile time
+	return 0;
+};
+</code></pre>
+<h1 id="conclusion-2"><a class="header" href="#conclusion-2">Conclusion</a></h1>
+<p>Well, this was a bit long, but here we cover all the core datatypes in Scribe. There is a lot more to these datatypes but that is out of scope of this manual.</p>
+<p>Take your time to understand these datatypes as they are incredibly useful and important for any programming language. Now, we will move on to functions.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="functions"><a class="header" href="#functions">Functions</a></h1>
+<p>Functions are groups of instructions, combined to perform specific tasks.
+Using functions, we can avoid having to repeat a task's code over and over again whenever we want to perform the task.</p>
+<p>Functions are quite pervasive in programming languages - there would be rarely any programming language without these.</p>
+<p>When we create a function with its group of instructions, it is called <strong>function definition</strong>.
+The group of instructions/statements is called <strong>function body</strong>. And, the usage of the function, it is called a <strong>function call</strong>.</p>
+<p>We may need to provide functions with some additional data, or retrieve some data from it. For that, we use function <strong>arguments</strong> and function <strong>return values</strong> respectively.</p>
+<h1 id="scribe-functions"><a class="header" href="#scribe-functions">Scribe Functions</a></h1>
+<p>There are a variety of functions in Scribe. Some of them are:</p>
+<ul>
+<li>Simple Functions</li>
+<li>Intrinsic Functions</li>
+<li>Associated Functions</li>
+<li>Callback Functions</li>
+<li>Variadic Functions</li>
+</ul>
+<p>Let's go over each of them.</p>
+<h2 id="simple-functions"><a class="header" href="#simple-functions">Simple Functions</a></h2>
+<p>These are the most basic functions in Scribe. The <code>main</code> function, for example, is actually a simple functions.
+Like any other function, these may or may not take arguments and which may or may not return data.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let greet = fn(whom: *const i8) { // simple function - takes a *const i8 as argument, returns nothing (void)
+	io.println(&quot;Hello &quot;, whom);
+};
+
+let main = fn(): i32 { // simple function - takes no argument, returns an i32
+	greet(&quot;Electrux&quot;);
+	return 0;
+};
+</code></pre>
+<h2 id="intrinsic-functions"><a class="header" href="#intrinsic-functions">Intrinsic Functions</a></h2>
+<p>These functions are built into the compiler and cannot be created in Scribe code. They never emit any code and perform their task while the code is being compiled.</p>
+<p>We have been using intrinsic functions all along - <code>@import()</code> is an intrinsic function which instructs the compiler to import a source file during compilation.</p>
+<p>As you may have guessed, intrinsic functions are always prepended by <code>@</code> when they are called.</p>
+<p>Another intrinsic that we have used is the <code>@array()</code> function with which array creation is possible.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+let arr = @array(i32, 10);
+</code></pre>
+<h2 id="associated-functions"><a class="header" href="#associated-functions">Associated Functions</a></h2>
+<p>These functions are associated to a structure or type. Yes, functions can be associated to built-in types (like <code>i1</code>, <code>i32</code>, <code>f32</code>, etc.) as well, except for pointer and array types.</p>
+<p>Such functions work on the instance of the structure/type they are associated to.</p>
+<p>Internally, these functions are provided a <code>self</code> argument which is a reference to the instance itself.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let A = struct {
+	i: i32;
+};
+
+let getI in A = fn(): &amp;i32 { // return reference to the member &quot;i&quot;
+	return self.i;
+};
+
+let disp in i32 = fn() {
+	io.println(self);
+};
+
+let main = fn(): i32 {
+	let a = A{1};
+	let p = a.getI(); // p is now a reference to a.i because getI() returns a reference
+	p = 20;
+	p.disp();         // displays 20
+	a.getI().disp();  // displays 20 - p was a reference to a.i
+	a.getI() = 10;    // works because getI() returns a reference
+	a.getI().disp();  // displays 10
+	return 0;
+};
+</code></pre>
+<p>Associated functions may be created anywhere in the code as long as they are created <strong>before</strong> their usage.</p>
+<p>There are times when you want to created associated functions on constant instances of types.
+For example, a <code>toStr()</code> function for an <code>i32</code> does not require the <code>i32</code> variable to be modifiable, and this function should be usable on <code>const i32</code> as well.</p>
+<p>Scribe can handle this situation. A specification detail of Scribe is that the type/struct after <code>in</code> in a let statement is <strong>not</strong> a type. It is a <strong>type expression</strong>.</p>
+<p>Therefore, for our <code>const</code> usecase, all you need to do is create the function as:</p>
+<pre><code class="language-rs">let toStr in const i32 = fn() {
+	// ...
+};
+</code></pre>
+<p>Quite convenient, right?!</p>
+<h2 id="callback-functions"><a class="header" href="#callback-functions">Callback Functions</a></h2>
+<p>Callback functions are simple functions, but they are passed around to other functions so that the other function can call them.</p>
+<p>That may sound weird, but this is a common concept which is used in many languages including Javascript (most notably), C, and C++.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let add5 = fn(data: i32): i32 {
+	return data + 5;
+};
+
+let sub5 = fn(data: i32): i32 {
+	return data - 5;
+};
+
+let f = fn(data: i32, cb: fn(x: i32): i32) {
+	io.println(&quot;Result is: &quot;, cb(data));
+};
+
+let f2 = fn(data: i32, cb: any) {
+	io.println(&quot;Result is: &quot;, cb(data));
+};
+
+let main = fn(): i32 {
+	f(10, add5); // Result is: 15
+	f(10, sub5); // Result is: 5
+	f2(10, sub5); // Result is: 5
+	return 0;
+};
+</code></pre>
+<p>Note that the function to which callback is passed <strong>must</strong> have the callback argument with same function signature as the callback function itself.</p>
+<p>The special type <code>any</code> can be used if desired, but that is more error prone since anything can be provided for <code>any</code> instead of just functions with specific signatures.</p>
+<h2 id="variadic-functions"><a class="header" href="#variadic-functions">Variadic Functions</a></h2>
+<p>These functions are special in that they have a parameter which is variadic - the function call can have infinite number of arguments in place of the variadic parameter.</p>
+<p>There can be only one variadic parameter in a function and it is declared variadic by prepending triple dots (<code>...</code>) with its type.</p>
+<p>For anyone coming from C, the <code>printf()</code> function in C is a variadic function.</p>
+<p>Unlike C however, Scribe's variadic parameters do not require any type casting and the compiler always knows the types stored in the variadic parameter.</p>
+<p>Combined with the <code>any</code> type, variadic parameters can be used to take any provided argument without limitation on the type of the argument.
+This makes variadic functions quite powerful and very useful. The <code>io.println()</code> function that we have been using, for example, is a variadic function - it can take an infinite list of comma separated arguments.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let sum = fn(args: ...i32): i32 { // args is a variadic which accepts all arguments of type i32
+	let comptime len = @valen(); // @valen() is an intrinsic which provides the number of variadic arguments (&gt;= 0) with which this function is called
+	let sum = 0;
+	inline for let comptime i = 0; i &lt; len; ++i { // we will learn more about inline loops later; do note that here 'inline' and 'comptime' must be present
+		sum += args[i];
+	}
+	return sum;
+};
+
+let main = fn(): i32 {
+	let s1 = sum(1); // s1 = 1 at runtime
+	let comptime s2 = sum(1, 2, 3); // s2 = 6 at compile time
+	return 0;
+};
+</code></pre>
+<p>Variadic arguments can also be &quot;unpacked&quot; and passed to other variadic functions just by using the variadic parameter name.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let sum = fn(args: ...i32): i32 {
+	let comptime len = @valen();
+	let sum = 0;
+	inline for let comptime i = 0; i &lt; len; ++i {
+		sum += args[i];
+	}
+	return sum;
+};
+
+let pass = fn(data: ...i32): i32 {
+	return sum(data, 5); // unpacks data and passes all the provided variadic arguments, with 5 at the end, to sum()
+};
+
+let main = fn(): i32 {
+	let s1 = pass(1); // s1 = 6 at runtime
+	let comptime s2 = pass(1, 2, 3); // s2 = 11 at compile time
+	return 0;
+};
+</code></pre>
+<p>You can also perform your own type check on variadic arguments at compile time to ensure the given arguments' types are one of specified types.</p>
+<p>Since these are completely compile time, they do not generate any code at runtime and hence will not impact performance.</p>
+<p>For example, to limit a variadic function to work with types <code>i32</code> and <code>i64</code> only,</p>
+<pre><code class="language-rs">let sum = fn(args: ...any): i32 {
+	let comptime len = @valen();
+	inline for let comptime i = 0; i &lt; len; ++i {
+		inline if !@isEqualTy(args[i], i32) &amp;&amp; !@isEqualTy(args[i], i64) {
+			@compileError(&quot;Expected argument type to be either i32 or i64, found: &quot;, @typeOf(args[i]));
+		}
+	}
+	let sum: i64 = 0;
+	inline for let comptime i = 0; i &lt; len; ++i {
+		sum += args[i];
+	}
+	return sum;
+};
+
+let main = fn(): i32 {
+	let s1 = sum(1);
+	let comptime s2 = sum(1, 2, 3, 4.5); // compilation fails - 4.5 is neither i32 nor i64
+	return 0;
+};
+</code></pre>
+<p>For those who are accustomed to programming and variadics, feel free to check out the standard library's <a href="https://github.com/scribe-lang/scribe/blob/main/headers/std/io.sc">std/io</a> module, which contains multiple variadic functions.</p>
+<h1 id="conclusion-3"><a class="header" href="#conclusion-3">Conclusion</a></h1>
+<p>Well, that is fundamentally how functions in Scribe work. It's recommended to write some sample programs to understand and ease into them.</p>
+<p>Next up, we'll be looking at Generics.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="generics"><a class="header" href="#generics">Generics</a></h1>
+<p>Generics, also known as <strong>templates</strong>, are special structures and functions which contain one or more variables with placeholder types.
+These placeholder types are replaced by actual types when the generic structure/function is created/used.</p>
+<p>In modern programming, generics are one of the most useful features as they allow a programmer to write &quot;generic code&quot; which can be used with different types by replacing the placeholders.</p>
+<p>Generics are the reason why data structures like <code>vectors</code> (dynamically sized arrays), <code>maps</code> (dictionaries), etc. are available in standard libraries of languages like C++.
+Since they use generic datatypes, they can work with any actual type the programmer requires.</p>
+<p>Let's understand generics and their use.</p>
+<h2 id="generic-structs"><a class="header" href="#generic-structs">Generic Structs</a></h2>
+<p>These structures contain one or more variables which have a &quot;template&quot;/generic type.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let GenA = struct&lt;T&gt; {
+	data: T;
+	ptr: *T
+};
+</code></pre>
+<p>These structures cannot be instantiated directly. Instead, they must first be specialized to replace generic types with the actual types, and then initialized like any other structure.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let GenA = struct&lt;T&gt; {
+	data: T;
+	ptr: *T
+};
+
+let main = fn(): i32 {
+	let a = GenA(i32){5, nil};
+	return 0;
+};
+</code></pre>
+<p>Here, we specialize <code>GenA</code> with <code>i32</code> as the generic's replacement type, and then instantiate that with <code>5</code> and <code>nil</code> for <code>data</code> and <code>ptr</code> respectively.</p>
+<h2 id="generic-functions"><a class="header" href="#generic-functions">Generic Functions</a></h2>
+<p>These functions contain one or more of either <code>any</code> type, or <code>type</code> type as a parameter.</p>
+<p>With <code>any</code>, as previously described, any argument can be provided.</p>
+<p>With <code>type</code> however, a specific type is utilized which can also be used elsewhere - say, as return type, variable declaration type, etc.</p>
+<p>Combined with generic structures, we can also use a variable with type <code>type</code> to specialize a structure.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let GenA = struct&lt;T&gt; {
+	data: *T;
+};
+
+let new = fn(comptime T: type): GenA(T) {
+	return GenA(T){nil};
+};
+
+let main = fn(): i32 {
+	let a = new(f32); // returns an instance of GenA, specialized with f32
+	// a.data is of type *f32
+	return 0;
+};
+</code></pre>
+<p>All functions associated to generic structures are also generic functions themselves.
+Scribe provides the generic type as a member of the structure instance in these functions, accessible using <code>self</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let GenA = struct&lt;T&gt; {
+	data: *T;
+};
+
+let set in GenA = fn(newdata: *self.T): &amp;self { // self can also be used as return type, which will become &amp;GenA(self.T)
+	self.data = newdata;
+	return self;
+};
+
+let main = fn(): i32 {
+	let a = GenA(i32){nil};
+	let p: *i32 = nil;
+	let q: *i32 = nil;
+	a.set(p).set(q); // chaining is possible since set() returns &amp;self
+	return 0;
+};
+</code></pre>
+<p>In Scribe, many data structures are made using generic structures and functions like:</p>
+<ul>
+<li><a href="https://github.com/scribe-lang/scribe/blob/main/headers/std/vec.sc">std/vec</a>,</li>
+<li><a href="https://github.com/scribe-lang/scribe/blob/main/headers/std/map.sc">std/map</a>, and</li>
+<li><a href="https://github.com/scribe-lang/scribe/blob/main/headers/std/linked_list.sc">std/linked_list</a></li>
+</ul>
+<p>Note that the generics are used and eradicated internally by the scribe compiler. That is, the generated C code (and subsequently the executable binary) will have no information of generics whatsoever.</p>
+<p>It is also recommended to check out the examples and standard library of Scribe to understand more about generics if you understand the concepts well, as they can be used in a variety of ways and have their own nuances.</p>
+<h1 id="conclusion-4"><a class="header" href="#conclusion-4">Conclusion</a></h1>
+<p>Here, we have learnt about generics and their usage in Scribe. We shall now move on to conditionals.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="conditionals"><a class="header" href="#conditionals">Conditionals</a></h1>
+<p>Conditionals are decision making constructs in a programming language.
+Basically, if we want to perform some action based on specific condition or criteria, we use conditionals.</p>
+<p>In Scribe, there are two variants of conditionals:</p>
+<ul>
+<li>Simple Conditionals</li>
+<li>Inline Conditionals</li>
+</ul>
+<h2 id="simple-conditionals"><a class="header" href="#simple-conditionals">Simple Conditionals</a></h2>
+<p>These are the usual conditionals that exist in most programming language. In Scribe, the following syntax is followed:</p>
+<pre><code class="language-rs">if &lt;expression&gt; {
+	// do this if expression yields a truthy value
+} elif &lt;expression&gt; {
+	// do this if the first if fails, but elif's expression yields a truthy value
+} else {
+	// do this if none of the if's and elif's yield a truthy value
+}
+</code></pre>
+<p>The <code>elif</code> and <code>else</code> sections are optional and may be skipped as required.</p>
+<p>A &quot;truthy value&quot; is one of:</p>
+<ul>
+<li>boolean <code>== true</code></li>
+<li>integer <code>!= 0</code></li>
+<li>float <code>!= 0.0</code></li>
+<li>pointer <code>!= nil</code></li>
+</ul>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	if true { // boolean true is a truthy value, therefore the following block is executed
+		io.println(&quot;This is displayed&quot;);
+	}
+	let ptr: *i32 = nil;
+	if ptr { // nil is not a truthy value, therefore the else block is executed
+		io.println(&quot;Pointer points to some data&quot;);
+	} else {
+		io.println(&quot;Pointer points to no data&quot;);
+	}
+	let a = 2;
+	if a == 1 { // this condition fails therefore the following block is not executed
+		io.println(&quot;a is 1&quot;);
+	} elif a == 2 { // this condition succeeds, therefore the following block is executed
+		io.println(&quot;a is 2&quot;);
+	} else {
+		io.println(&quot;a is neither 1 nor 2&quot;);
+	}
+	return 0;
+};
+</code></pre>
+<h2 id="inline-conditionals"><a class="header" href="#inline-conditionals">Inline Conditionals</a></h2>
+<p>These are special conditionals that are evaluated at compile time.
+This means that the compiler will execute the conditional during compilation and whichever section yields a truthy value, that section will be left in the code.
+The other sections of the conditional will be removed completely.</p>
+<p>Also, if none of the sections evaluate to a truthy value, the entire conditional will be removed.</p>
+<p>Note that the conditional's block will not executed like it is during runtime. Instead, the block will be placed as long as its conditonal yields a truthy value.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = struct {
+	data: i32;
+};
+
+let getData in A = fn(): i32 {
+	return self.data;
+};
+
+let get = fn(from: &amp;any): i32 {
+	inline if @isEqualTy(from, A) {
+		return from.getData();
+	} elif @isEqualTy(from, i32) {
+		return from;
+	} else {
+		@compileError(&quot;Cannot return i32 from data of type: &quot;, @typeOf(from));
+	}
+};
+
+let main = fn(): i32 {
+	let a = A{5};
+	let b = 20;
+	let c = &quot;a string&quot;;
+	let a1 = get(a); // calls a.getData()
+	let b1 = get(b); // returns b
+	let c1 = get(c); // compilation fails (@compileError() is called) - c is neither an instance of A nor an i32
+	return 0;
+};
+</code></pre>
+<p>As visible from the above example, inline conditionals can be quite powerful - they allow decision making based on compile time known information.
+The code is valid because whichever condition does not hold true, the block for that conditional will be erase altogether.
+Therefore, compiler will not complain about the lack of, say, <code>getData()</code> associated function not existing, when an <code>i32</code> is passed to the function.</p>
+<h1 id="conclusion-5"><a class="header" href="#conclusion-5">Conclusion</a></h1>
+<p>Hence, we understand how conditionals in Scribe work and what all they can do.</p>
+<p>Next, we will understand about loops.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="loops"><a class="header" href="#loops">Loops</a></h1>
+<p>Loops are sequences of code that run over and over again, usually, as long as some condition is met. They, like functions, help a lot in reducing repetitive code.</p>
+<p>For example, if we want to make a multiplication table of 12 from 1 to 10, would we write 10 statements by hand? It would look something like this:</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	io.println(&quot;12 x 1 = &quot;, 12 * 1);
+	io.println(&quot;12 x 2 = &quot;, 12 * 2);
+	io.println(&quot;12 x 3 = &quot;, 12 * 3);
+	io.println(&quot;12 x 4 = &quot;, 12 * 4);
+	io.println(&quot;12 x 5 = &quot;, 12 * 5);
+	io.println(&quot;12 x 6 = &quot;, 12 * 6);
+	io.println(&quot;12 x 7 = &quot;, 12 * 7);
+	io.println(&quot;12 x 8 = &quot;, 12 * 8);
+	io.println(&quot;12 x 9 = &quot;, 12 * 9);
+	io.println(&quot;12 x 10 = &quot;, 12 * 10);
+	return 0;
+};
+</code></pre>
+<p>That works, sure. But for sure it isn't convenient! And this is just for tables from 1-10. What about 1-100, or 1-1000? That's 1000 lines of code which is incredibly hard to maintain.</p>
+<p>That's where loops come in. The above code, using loops, could simply be written as:</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	for let i = 1; i &lt;= 10; ++i {
+		io.println(&quot;12 x &quot;, i, &quot; = &quot;, 12 * i);
+	}
+	return 0;
+};
+</code></pre>
+<p>And if we want to do this for, say, 1000, all we have to do is change the <code>i &lt;= 10</code> condition to <code>i &lt;= 1000</code>! That's all!</p>
+<p>That's a really basic example of loops, but it should paint the picture of their fundamental purpose.</p>
+<p>Each execution of the loop block is called loop iteration. As such, the above loop had 10 iterations as the loop block was executed 10 times.</p>
+<p>There are special statements that can be used with loops:</p>
+<ul>
+<li><strong>continue</strong> - This causes a loop's current iteration to be &quot;skipped&quot; from where the <code>continue</code> statement is present.</li>
+<li><strong>break</strong> - This causes a loop to stop executing from where the <code>break</code> statement is present.</li>
+</ul>
+<p>In Scribe, there are 3 varieties of loops:</p>
+<ul>
+<li>For Loops
+<ul>
+<li>Simple For Loops</li>
+<li>Inline For Loops</li>
+</ul>
+</li>
+<li>While Loops</li>
+<li>For-each Loops</li>
+</ul>
+<h2 id="for-loops"><a class="header" href="#for-loops">For Loops</a></h2>
+<p>Similar to conditionals, there are two types of for-loops:</p>
+<ul>
+<li>Simple For Loops</li>
+<li>Inline For Loops</li>
+</ul>
+<h3 id="simple-for-loops"><a class="header" href="#simple-for-loops">Simple For Loops</a></h3>
+<p>These are the most basic and standard loops that exist throughout various programming languages. These loops consist of 4 components:</p>
+<ul>
+<li><strong>Initialization</strong> - This component is used to initialize the loop, often by creating a variable. Like in the above example, we initialized <code>i</code> with value <code>1</code>. This component is executed just once, right before the loop starts.</li>
+<li><strong>Condition</strong> - This defines how many times the loop must be run. Before each loop iteration, this condition is checked. If the condition is true, the iteration occurs, otherwise the loop is stopped.</li>
+<li><strong>Increment/Decrement</strong> - This This component allows for modification in some value - often to update the variable that is being looped through (above, <code>++i</code>) after each execution of the loop block.</li>
+<li><strong>Loop Block</strong> - This is the body of the loop. Whatever we want executed multiple times comes here.</li>
+</ul>
+<p>Aside from loop block, all the other components are optional and we can also skip them all should we want to, which will make for an infinite loop - a loop that never ends.</p>
+<p>The loop block can also be empty if there is nothing to be done inside the loop.</p>
+<p>Needless to say, the loop we wrote for generating table of 12 was a simple for loop.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	let i = 0;
+	for ; ; {
+		if i &gt;= 10 { break; }
+		if i == 5 { continue; }
+		io.println(i);
+		++i;
+	}
+	return 0;
+};
+</code></pre>
+<p>The above loop will print all numbers from 0-9 (inclusive), except 5.</p>
+<h3 id="inline-for-loops"><a class="header" href="#inline-for-loops">Inline For Loops</a></h3>
+<p>Similar to inline conditionals, Scribe supports inline for loops which are executed at compile time. It requires that all the components of the loop, except the loop block, must be evaluable at compile time.</p>
+<p>Note that the loop block will not executed like it is during runtime, but instead, the block will be repeated as many times as the loop condition holds true.
+Therefore it is unwise to make large inline for loops as they will increase code size, increase compilation time, and most likely reduce code performance as well.
+An infinite inline for loop will cause the compiler to never finish compiling (and if not stopped, cause the system to run out of memory).</p>
+<p>Functions like <code>io.println()</code> are able to exist in Scribe userland (without special compiler magic) code because of variadic parameters, inline for loops, and inline conditionals.</p>
+<p>As we have seen in the Functions chapter of this manual, inline for loops can be used to iterate over a variadic parameter to work with each of the provided argument.</p>
+<p>For example, a <code>println()</code> function can be written as:</p>
+<pre><code class="language-rs">let c = @import(&quot;std/c&quot;); // imports functions from C
+let string = @import(&quot;std/string&quot;); // contains string.String and associated functions for integer to string (&lt;int&gt;.str())
+
+let println = fn(data: ...&amp;const any): i32 { // takes variadic number of arguments each of type &amp;const any (any const reference), and returns an i32
+	let comptime len = @valen();
+	let sum = 0;
+	inline for let comptime i = 0; i &lt; len; ++i {
+		inline if @isCString(data[i]) {
+			sum += c.fputs(data[i], c.stdout);
+		} elif @isCChar(data[i]) {
+			sum += c.fputc(data[i], c.stdout);
+		} elif @isEqualTy(data[i], string.String) {
+			sum += c.fputs(data[i].cStr(), c.stdout);
+		} else {
+			let s = data[i].str();
+			defer s.deinit();
+			sum += c.fputs(s.cStr(), c.stdout);
+		}
+	}
+	sum += c.fputc('\n', c.stdout);
+	return sum;
+};
+
+let main = fn(): i32 {
+	println(); // prints a newline ('\n') character
+	println(5); // none of inline if's are true, therefore else is used
+	println(&quot;Hello &quot;, 1); // first argument is a cstring, second is an integer
+	return 0;
+};
+</code></pre>
+<p>In the function, a compile time iteration (using inline for) is done over each of the variadic parameter's provided argument.
+Based on the type of that argument, we determine which function to call in order to display the data.</p>
+<p>Note that the iteration variable (here, <code>i</code>) <strong>must</strong> be created as <code>comptime</code> or the results may be undefined.</p>
+<h2 id="while-loops"><a class="header" href="#while-loops">While Loops</a></h2>
+<p>Unlike for loops which consist of 4 components, while loops consist of just 2 - loop condition and loop body.
+In a sense, these can be considered a subset of for loops, simply providing a cleaner approach for creating a loop when only the condition is involved.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	let i = 0;
+	while i &lt; 10 {
+		if i == 5 { continue; }
+		io.println(i++);
+	}
+	return 0;
+};
+</code></pre>
+<p>There is no <code>inline</code> variant for while loops.</p>
+<h2 id="for-each-loops"><a class="header" href="#for-each-loops">For-each Loops</a></h2>
+<p>These loops are generally used to list over items in a data structure. At the end of the day, they are syntactic sugar which are transformed by the compiler into simple for loops.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+let vec = @import(&quot;std/vec&quot;);
+
+let main = fn(): i32 {
+	let v = vec.new(i32, true);
+	defer v.deinit(); // we'll come to defer in the next chapter
+	for let i = 0; i &lt; 10; ++i {
+		v.push(i);
+	}
+	for e in v.each() { // iterates over each element, the reference of which is in variable 'e'
+		io.println(e);
+	}
+	for e in v.eachRev() { // iterates over each element, in reverse
+		io.println(e);
+	}
+	for e in v.each() {
+		e = e + 1; // since e is a reference to an element in the vector, it can be modified
+	}
+	io.println(v);
+	return 0;
+};
+</code></pre>
+<p>There are some requirements that must be met in order to use for-each loops on your own structure (type):</p>
+<ul>
+<li>
+<p>The iterator generation function (here, <code>each()</code>, and <code>eachRev()</code>) must return an iteration structure (here <code>iter.Iter</code>, see <a href="https://github.com/scribe-lang/scribe/blob/main/headers/std/iter.sc">std/iter</a>) that contains the following functions:</p>
+<ul>
+<li><code>begin(): E</code></li>
+<li><code>end(): E</code></li>
+<li><code>next(E): E</code></li>
+<li><code>at(E): &amp;any</code></li>
+</ul>
+<p>Where, <code>E</code> is the iteration counter, and <code>any</code> is the data (usually reference) that should be stored in the for each iteration variable (<code>e</code>).</p>
+</li>
+<li>
+<p>The structure (type) must contain a function with signature as <code>at(E): D</code>, where <code>E</code> is the iteration counter (index for a vector), and <code>D</code> is the returned data against the iteration counter (element reference for a vector).</p>
+</li>
+</ul>
+<p>Once these conditions are met, any custom datatype (structure) can be used with a for-each loop.</p>
+<p>As with <code>while</code> loops, there is no <code>inline</code> variant for for-each loops.</p>
+<h1 id="conclusion-6"><a class="header" href="#conclusion-6">Conclusion</a></h1>
+<p>Here we learn about the various types of loops in Scribe, and their usage.
+Next up, we will understand an interesting Scribe feature - <code>defer</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="defer"><a class="header" href="#defer">Defer</a></h1>
+<p>A common problem programmers face with C is that since memory allocation is done manually, it must later be deallocated manually as well. We often forget to do that, which results in memory leaks.</p>
+<p>Another similar issue stems when there are multiple exists (returns) from a function. If the deallocation must be done at the end of the function, it would either have to be done before all returns,
+or there would be multiple gotos to a single tag, instead of multiple returns, where the deallocation will be done and finally function will be exited (returned).</p>
+<p>Both of the approaches are quite cumbersome and annoying to work with.</p>
+<p>Therefore, Scribe provides a <code>defer</code> language keyword which is followed by an expression that must be executed before the function exists (returns).
+This <code>defer</code> may be placed anywhere in the code and its expression is guaranteed to be called before the function returns (does not include crashes).</p>
+<p>As such, a programmer would generally write a <code>defer</code> right after the allocation, therefore not having to remember to deallocate later on, and reducing code redundancy when multiple returns are involved.</p>
+<p>It also makes reading code easier in the future as one can simply see the allocations and their respective defers just after them to ensure all data is being allocated and deallocated correctly.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let c = @import(&quot;std/c&quot;);
+
+let main = fn(): i32 {
+	let arr1 = mem.alloc(i32, 10); // allocate 10x i32's
+	let arr2 = mem.alloc(f64, 20); // allocate 20x f64's
+	defer mem.free(i32, arr1);
+	defer mem.free(f64, arr2);
+
+	if true {
+		// both frees would be added here automatically
+		return 1;
+	}
+	// both frees would be added here automatically
+	return 0;
+};
+</code></pre>
+<p>Note that the deferred expressions are added in the <strong>reverse</strong> order of their usage. In the above example, the <code>mem.free()</code>'s will be added before the returns such that <code>arr2</code> is free'd first.</p>
+<p><code>defer</code> is not limited to a function. It actually works on scopes, so something like this is correct too:</p>
+<pre><code class="language-rs">let c = @import(&quot;std/c&quot;);
+let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	for let i = 0; i &lt; 10; ++i {
+		let arr = mem.alloc(i32, i + 1);
+		defer mem.free(i32, arr);
+		let addr = @as(u64, arr);
+		io.println(&quot;Allocated address: &quot;, addr);
+		// mem.free() is called here
+	}
+	return 0;
+};
+</code></pre>
+<h1 id="conclusion-7"><a class="header" href="#conclusion-7">Conclusion</a></h1>
+<p>Defer is an interesting and useful construct which provides a balance between the complexities of C++'s RAII, and C's error prone ways.</p>
+<p>Credits to the Zig programming language which uses <code>defer</code> as well, from where I so shamelessly copied the concept.</p>
+<p>For now, this concludes the main Scribe features. Feel free to check out the standard library documentation which may come in quite handy.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+    </body>
+</html>

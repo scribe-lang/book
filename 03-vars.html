@@ -1,0 +1,340 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Variables - Scribe Programming Language</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="00-intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="01-install.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="02-hello-world.html"><strong aria-hidden="true">3.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="03-vars.html" class="active"><strong aria-hidden="true">4.</strong> Variables</a></li><li class="chapter-item expanded "><a href="04-datatypes.html"><strong aria-hidden="true">5.</strong> Datatypes</a></li><li class="chapter-item expanded "><a href="05-functions.html"><strong aria-hidden="true">6.</strong> Functions</a></li><li class="chapter-item expanded "><a href="06-generics.html"><strong aria-hidden="true">7.</strong> Generics</a></li><li class="chapter-item expanded "><a href="07-conditionals.html"><strong aria-hidden="true">8.</strong> Conditionals</a></li><li class="chapter-item expanded "><a href="08-loops.html"><strong aria-hidden="true">9.</strong> Loops</a></li><li class="chapter-item expanded "><a href="09-defer.html"><strong aria-hidden="true">10.</strong> Defer</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Scribe Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="creating-variables"><a class="header" href="#creating-variables">Creating Variables</a></h1>
+<p>Variables are pretty much aliases that the programmers make for using memory to allocate some data.
+Obviously, we do not want, for our sanity's sake, to use memory addresses directly for accessing our data.
+That is really complicated, hard to remember, and an absolute nightmare to maintain.
+So instead, we assign these memory locations, containing our data, names which we can use in our programs as needed.</p>
+<p>As such, variables are a crucial component of a programming language.</p>
+<p>There are two ways to create variables in Scribe.</p>
+<h2 id="definition"><a class="header" href="#definition">Definition</a></h2>
+<p>To define a variable in Scribe, the <code>let &lt;identifier&gt; = &lt;expression&gt;;</code> pattern is used.</p>
+<p>The identifier will be the variable name, followed by the value expression after the assignment (<code>=</code>) symbol, terminated by a semicolon (<code>;</code>).</p>
+<p>Since Scribe is a statically typed language, the type of each variable is necessary. However, in this (definition) format, the datatype is <strong>inferred</strong>.
+In other words, the compiler can deduce the type of the variable from the expression.</p>
+<p>This is the syntax used to import the <code>std/io</code> module in the Hello World example.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let an_int = 20;                   // type: i32
+let a_string = &quot;this is a string&quot;; // type: *const i8 (just like C)
+let a_flt = 2.5;                   // type: f32 (float)
+</code></pre>
+<h2 id="declaration"><a class="header" href="#declaration">Declaration</a></h2>
+<p>To declare a variable, the <code>let &lt;identifer&gt;: &lt;type&gt;;</code> pattern is used.</p>
+<p>As before, the identifier will be the variable name, followed by the datatype of the variable after a colon (<code>:</code>), terminated by a semicolon (<code>;</code>).</p>
+<p>Here, we explicitly mention the datatype of the variable since there is no expression to deduce it from.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let an_int: u64; // type: u64 (unsigned 64 bit integer)
+let a_flt: f64;  // type: f64 (64 bit float)
+</code></pre>
+<h2 id="notes"><a class="header" href="#notes">Notes</a></h2>
+<p>Both the styles can be merged as well, as long as the <code>type</code> and <code>expression</code>'s type are same. The only exception is automatic type casting between primitive datatypes.</p>
+<p>For example, if you want to create a variable with value <code>5</code> (which has type: <code>i32</code>), but of type: <code>u64</code>, you can do:</p>
+<pre><code class="language-rs">let u64int: u64 = 5;
+</code></pre>
+<h1 id="variable-reassignment"><a class="header" href="#variable-reassignment">Variable (Re)assignment</a></h1>
+<p>A variable won't quite be a &quot;variable&quot; if its value cannot be changed. Therefore, to change (or set) the value of a variable, you can use the variable name, followed by the assignment (<code>=</code>) symbol, followed by the value.</p>
+<p>Do note that the datatype of the variable can never be changed after a variable is created. Hence, for (re)assignment, the datatype of the new value must be the same as the one used/inferred when creating the variable.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let a = 5;
+a = 10; // valid
+a = &quot;a string&quot;; // invalid
+</code></pre>
+<p>Similarly,</p>
+<pre><code class="language-rs">let a: u64;
+a = 10; // valid
+a = &quot;a string&quot;; // invalid
+a = 5.0; // valid
+</code></pre>
+<h2 id="type-coercion"><a class="header" href="#type-coercion">Type Coercion</a></h2>
+<p>You may be wondering how is <code>a = 5.0;</code> valid. The datatype of a is <code>u64</code>, while that of <code>5.0</code> is <code>f32</code>.</p>
+<p>The reason is that the compiler can automatically &quot;coerce&quot; between primitive (<code>i1, i8, i16, i32, i64, u8, u16, u32, u64, f32, f64</code>) types.
+In other words, the data from these types can be used with a value/variable of another of these types.</p>
+<p>This does come at a loss of data itself (about which more can be found on the Internet), therefore one must be careful when writing code that can be automatically type coerced.</p>
+<h1 id="variable-scope"><a class="header" href="#variable-scope">Variable Scope</a></h1>
+<p>The scope of a variable defines its <code>lifetime</code> - when is it created to when it is destroyed. Scribe, like many languages, uses <code>braces</code> (<code>{</code> and <code>}</code>) to define blocks of code.
+Any variable has its lifetime bound to this block - it cannot be used outside this block.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let a = 5;
+</code></pre>
+<p>This is globally scoped - not contained within any block. Therefore, this variable can be used anywhere after its creation.</p>
+<p>Another example:</p>
+<pre><code class="language-rs">let main = fn(): i32 {
+	let a = 5;
+};
+</code></pre>
+<p>Here, the variable <code>a</code> can be used anywhere <strong>within</strong> the braces of the <code>main</code> function (and of course, <strong>after</strong> the creation).</p>
+<p>Scribe also supports <code>variable shadowing</code>. That is, if there is a variable in a parent block, a new variable can be created of the same name, within a new block, inside the parent block.</p>
+<p>For example:</p>
+<pre><code class="language-rs">let main = fn(): i32 {
+	let a = 5;
+	{
+		let a = &quot;a string&quot;;
+	}
+};
+</code></pre>
+<p>The above code is valid. Within the <code>main</code> function's block, the integer variable <code>a</code> is usable. And within the block inside the <code>main</code> function, the string variable <code>a</code> is usable.</p>
+<h1 id="variable-names"><a class="header" href="#variable-names">Variable Names</a></h1>
+<p>One last important thing about variables is their name. Scribe defines specific rules based on which you can name variables, quite similar to most other languages.
+These rules are that variable names:</p>
+<ul>
+<li>Must begin with an alphabet (irrelevant of the case) or underscore</li>
+<li>Can contain numbers anywhere except the first character</li>
+<li>Cannot contain any symbol other than alphabets, numbers, and underscores.</li>
+</ul>
+<h1 id="variable-type-modifiers"><a class="header" href="#variable-type-modifiers">Variable Type Modifiers</a></h1>
+<p>Type modifiers alter the working of a variable - what they store, how they work, etc.</p>
+<p>There are 4 type modifiers in Scribe:</p>
+<ul>
+<li>Static</li>
+<li>Reference</li>
+<li>Constant</li>
+<li>Comptime</li>
+</ul>
+<h2 id="static"><a class="header" href="#static">Static</a></h2>
+<p>The static modifier allows the variable to be stored in global storage - the variable is created only once.
+If such a variable is present inside a function, the variable will be initialized only once and it will maintain its value across function calls.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let f = fn(): i32 {
+	let static x = 5;
+	return x++;
+};
+
+let main = fn(): i32 {
+	io.println(f()); // prints 5
+	io.println(f()); // prints 6
+	io.println(f()); // prints 7
+	return 0;
+};
+</code></pre>
+<h2 id="reference"><a class="header" href="#reference">Reference</a></h2>
+<p>Reference variables are the same as in C++ - they are references to other variables. In other words, reference variables can be considered as aliases to other variables.</p>
+<p>These variables are created by using <code>&amp;</code> with the type.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let f = fn(data: &amp;i32) {
+	data = 10;
+};
+
+let main = fn(): i32 {
+	let a = 5;
+	f(a);
+	// now a is 10
+	return 0;
+};
+</code></pre>
+<h2 id="constant"><a class="header" href="#constant">Constant</a></h2>
+<p>Variables, in general, can be modified. However, there are times when the programmer does not want a variable to be modifiable - it must stay constant. That's what the constant modifier allows.</p>
+<p>Constant variables, once created, can never be modified again. Attempting to modify them is a compilation error.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let main = fn(): i32 {
+	let const i = 10;
+	i = 20; // error: i is a constant
+	return 0;
+};
+</code></pre>
+<h2 id="comptime"><a class="header" href="#comptime">Comptime</a></h2>
+<p>Scribe contains a pretty nifty and useful feature - comptime variables. A comptime variable is special in the sense that the value of such a variable is evaluated during the code compilation.
+Hence, some conditions apply for a variable to be allowed to be comptime:</p>
+<ol>
+<li>There must be a value expression for the variable</li>
+<li>The value expression must be able to be evaluated during compile time itself - it cannot contain data that cannot be computed during compilation</li>
+</ol>
+<p>For example,</p>
+<pre><code class="language-rs">let comptime a = 50; // valid - 50 is a value which is known by the compiler
+let f = fn(x: i32): i32 {
+	return x * 5 + 25;
+};
+
+let comptime b = f(10); // valid - function call is provided a value known by the compiler, and everything inside the function body is computable by the compiler
+
+let io = @import(&quot;std/io&quot;);
+
+let f2 = fn(x: i32): i32 {
+	io.println(x);
+	return x * 5 + 25;
+};
+
+let comptime c = f2(10); // invalid - io.println() does not work at compile time
+
+let arr = @array(i32, 10);
+
+let comptime x = arr[1]; // valid - @array() creates an array and initializes it to zero at compile time
+</code></pre>
+<h1 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h1>
+<p>Well, that is basically how variables, their reassignment, and their scopes, work. Not much to learn or understand and pretty easy - which is the goal!</p>
+<p>Next, we'll understand the concept of datatypes and see some of the fundamental (primitive) datatypes in Scribe.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="02-hello-world.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="04-datatypes.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="02-hello-world.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="04-datatypes.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

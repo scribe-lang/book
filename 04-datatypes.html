@@ -1,0 +1,378 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Datatypes - Scribe Programming Language</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="00-intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="01-install.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="02-hello-world.html"><strong aria-hidden="true">3.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="03-vars.html"><strong aria-hidden="true">4.</strong> Variables</a></li><li class="chapter-item expanded "><a href="04-datatypes.html" class="active"><strong aria-hidden="true">5.</strong> Datatypes</a></li><li class="chapter-item expanded "><a href="05-functions.html"><strong aria-hidden="true">6.</strong> Functions</a></li><li class="chapter-item expanded "><a href="06-generics.html"><strong aria-hidden="true">7.</strong> Generics</a></li><li class="chapter-item expanded "><a href="07-conditionals.html"><strong aria-hidden="true">8.</strong> Conditionals</a></li><li class="chapter-item expanded "><a href="08-loops.html"><strong aria-hidden="true">9.</strong> Loops</a></li><li class="chapter-item expanded "><a href="09-defer.html"><strong aria-hidden="true">10.</strong> Defer</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Scribe Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="datatypes"><a class="header" href="#datatypes">Datatypes</a></h1>
+<p>Any data that exists must have a type associated with it, and since Scribe is statically typed, these datatypes must be known when the program is compiled.</p>
+<p>Datatypes are abstractions over binary sequences that define what kind of data a variable contains, and how that data is represented in memory.</p>
+<p>If you have any prior experience in programming, you probably know datatypes quite well.</p>
+<p>Core datatypes in Scribe are:</p>
+<table><thead><tr><th>Types in C</th><th>Scribe Equivalent</th></tr></thead><tbody>
+<tr><td>void</td><td>void</td></tr>
+<tr><td>bool</td><td>i1</td></tr>
+<tr><td>char</td><td>i8</td></tr>
+<tr><td>short</td><td>i16</td></tr>
+<tr><td>int</td><td>i32</td></tr>
+<tr><td>long int</td><td>i64</td></tr>
+<tr><td>unsigned char</td><td>u8</td></tr>
+<tr><td>unsigned short</td><td>u16</td></tr>
+<tr><td>unsigned int</td><td>u32</td></tr>
+<tr><td>unsigned long int</td><td>u64</td></tr>
+<tr><td>float</td><td>f32</td></tr>
+<tr><td>double</td><td>f64</td></tr>
+</tbody></table>
+<p>Similar to C, Scribe contains pointers as well.</p>
+<p>And the string literals are represented as <code>*const i8</code> (equivalent to <code>const char *</code> in C).</p>
+<p>Let's dive a bit into the core datatypes.</p>
+<h1 id="core-datatypes---primitive-types"><a class="header" href="#core-datatypes---primitive-types">Core Datatypes - Primitive Types</a></h1>
+<h2 id="integers"><a class="header" href="#integers">Integers</a></h2>
+<p>Scribe contains a total of 9 integer types varying in bit count and signed vs unsigned.</p>
+<p>The signed variants are: <code>i1</code>, <code>i8</code>, <code>i16</code>, <code>i32</code>, and <code>i64</code>. The unsigned variants are: <code>u8</code>, <code>u16</code>, <code>u32</code>, and <code>u64</code>.</p>
+<p>Depending on requirement, anyone of these can be used.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = 32;      // type: i32
+let b: u64 = 64; // type: u64
+let c = true;    // type: i1
+</code></pre>
+<h2 id="floating-points"><a class="header" href="#floating-points">Floating Points</a></h2>
+<p>There are 2 floating-point types in Scribe - <code>f32</code> and <code>f64</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = 3.2;      // type: f32
+let b: f64 = 6.4; // type: f64
+let c = 3.0;      // type: f32
+</code></pre>
+<p>The decimal point (<code>.</code>) is necessary to differentiate between an integer and a floating-point number.</p>
+<h2 id="booleans"><a class="header" href="#booleans">Booleans</a></h2>
+<p>In Scribe, booleans are represented using the <code>i1</code> type. <code>bool</code> is available as well and is an alias to <code>i1</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = true;        // type: i1
+let b: bool = false; // type: i1
+let c: i1 = true;    // type: i1
+</code></pre>
+<h2 id="characters"><a class="header" href="#characters">Characters</a></h2>
+<p>Characters are nothing but <code>i8</code> in Scribe. However, similar to C, characters are represented within single quotes (<code>'</code>).
+These characters are byte-sized and no more than one character can be present within the single quotes.</p>
+<p>Therefore, unicode characters must be defined as strings (within double-quotes).</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = 'a'; // type: i8
+</code></pre>
+<h2 id="strings"><a class="header" href="#strings">Strings</a></h2>
+<p>The fundamental &quot;string&quot; in Scribe is the same as in C - pointer to i8 (char). All string literals have the type <code>*const i8</code> (C's equivalent to <code>const char *</code>).</p>
+<p>For example,</p>
+<pre><code class="language-rs">let a = &quot;Hello World&quot;; // type: *const i8
+</code></pre>
+<p>Scribe, unlike C however, also contains a <code>String</code> type in standard library. The <code>String</code> type and C-style strings can be converted to each other using provided functions (more in the String standard library chapter of this manual).</p>
+<h2 id="enums"><a class="header" href="#enums">Enums</a></h2>
+<p>Similar to C, Scribe contains enums which have integer values. However unlike C, enum variables cannot be used by themselves. They must be preceded by the enum name and dot (<code>.</code>).</p>
+<p>This allows for having same enum tags across multiple enums without them clashing with each other.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = enum {
+	ZERO,
+	ONE,
+	TWO
+};
+
+let B = enum {
+	ZERO, // no clash here
+	FIRST,
+	SECOND,
+};
+
+let zero_in_a = A.ZERO;
+let zero_in_b = B.ZERO;
+
+let main = fn(): i32 {
+	let t = A.ONE == B.FIRST; // true - both contain value 1
+	let f = A.ONE == B.ZERO;  // false - 1 != 0
+	return 0;
+};
+</code></pre>
+<h2 id="structures"><a class="header" href="#structures">Structures</a></h2>
+<p>Scribe provides structures as a data structure to pack multiple (existing) types/structures into a single unit. Similar to C, structure members are accessed using the dot (<code>.</code>) operator.</p>
+<p>To instantiate a structure, the structure is &quot;called&quot; using braces (<code>{...}</code>) with the member values as arguments.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = struct {
+	i: i32;
+	f: f64;
+};
+
+let B = struct {
+	u: u64;
+	a: A; // B contains variable a, which is of type structure A
+};
+
+let main = fn(): i32 {
+	let a = A{3, 2.5};
+	let b = B{1, a};
+	let c = B{10, A{3, 5.0}};
+	let p = a.i + b.u;
+	let q = a.f + b.a.f;
+	let r = c.u + c.a.f;
+	return 0;
+};
+</code></pre>
+<p>Unlike C however, pointers to structures are deduced internally, so even for structure pointers, the dot (<code>.</code>) operator applies (no arrow (<code>-&gt;</code>) or dereference (<code>*</code>) operator required).
+We will see this behavior when we understand pointers in Scribe.</p>
+<p>Scribe also allows for &quot;member functions&quot; for structures. However, the term &quot;member functions&quot; is an incorrect term for Scribe because these functions are not defined inside the structure itself.
+In this language, functions can be <strong>associated</strong> to structures, hence referred to as &quot;associated functions&quot;. These functions work on structures, but can be defined anywhere after the structure itself is created.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = struct {
+	i: i32;
+	f: f64;
+};
+
+let getI in A = fn(): i32 {
+	return self.i; // every associated function will have a &quot;self&quot; variable which is a reference to the struct (instance) to which the function is associated
+};
+
+let main = fn(): i32 {
+	let a = A{1, 2.5};
+	let x = a.getI(); // x = 1
+	return 0;
+};
+</code></pre>
+<h2 id="arrays"><a class="header" href="#arrays">Arrays</a></h2>
+<p>Scribe provides the ability to create arrays - a contiguous sequential collection of data of a single structure/type.
+The array size must be known at compile time, that is, the array length must be known when writing the code itself.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let arr1 = @array(i32, 10);     // 1D (size: 10) array of type i32
+let arr2 = @array(i32, 10, 10); // 2D (size: 10x10) array of type i32
+
+let A = struct {
+	i: i32;
+	f: f64;
+};
+
+let arr3 = @array(A, 10); // 1D (size: 10) array of type structure A
+let data1 = arr3[1].i;    // data in arr3's member 'i' at the first index
+</code></pre>
+<p>Scribe does not have a specific array type notation (usually something like <code>int[5]</code> in most languages). Instead, in Scribe, arrays are passed around as pointers themselves.</p>
+<p>An important thing to note about arrays in Scribe is that they are always initialized to zero values. That is, unlike C, the array values are never undefined.</p>
+<h2 id="pointers"><a class="header" href="#pointers">Pointers</a></h2>
+<p>Pointers allow the use of heap memory to dynamically (at runtime) allocate memory which can be of variable size.
+These variables usually store either memory addresses to other variables, or the memory address to some data on the heap.
+They may also not point to any data - when their value is zero (<code>nil</code>).</p>
+<p>Note that any memory allocated during runtime by the program must be deallocated by the program as well.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let c = @import(&quot;std/c&quot;); // contains C functions
+
+let main = fn(): i32 {
+	let a = 5;
+	let ptr_a = &amp;a;
+	let data_a = *ptr_a;
+	*ptr_a = 10; // now a is also 10
+
+	let arr = mem.alloc(i32, 10); // allocate memory equal to 10 i32's at runtime
+	arr[1] = 5; // set value 5 at index 1 of arr
+	mem.free(i32, arr); // deallocate memory which was allocated by malloc
+	return 0;
+};
+</code></pre>
+<h2 id="special-types"><a class="header" href="#special-types">Special Types</a></h2>
+<p>Scribe contains some special types for specific use cases. These are a bit advanced and must not be used unless needed (you will know if they're needed).</p>
+<p>These types are used solely in function signatures. As such, they are not used anywhere else.</p>
+<h3 id="type"><a class="header" href="#type">Type</a></h3>
+<p><code>type</code> is a special type, a variable of which can contain a type. This is all compile time only and no code is generates for this.
+This is used with generics (more on generics later) to pass datatypes as argument. A variable of type <code>type</code> <strong>must</strong> be declared <code>comptime</code>.</p>
+<p>This is how <code>mem.alloc()</code> function, used above, works. We can pass <code>i32</code> type to malloc because its signature's first parameter is of type <code>type</code>.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let f = fn(comptime T: type, data: T): T {
+	return data * data;
+};
+
+let main = fn(): i32 {
+	let p = f(i32, 10);  // p is of type i32, with value 100
+	let q = f(f32, 2.5); // q is of type f32, with value 6.25
+	return 0;
+};
+</code></pre>
+<h3 id="any"><a class="header" href="#any">Any</a></h3>
+<p><code>any</code>, as you may have guessed, allows variable of any type to be passed to a function.
+If used as return type, it allows the compiler to deduce what type is being returned by the function through the return statements present inside the function.</p>
+<pre><code class="language-rs">let f = fn(data: any): any {
+	return data * data;
+};
+
+let main = fn(): i32 {
+	let p = f(i32, 10);  // p is of type i32, with value 100
+	let q = f(f32, 2.5); // q is of type f32, with value 6.25
+	let comptime a = f(i32, 10);  // a is of type i32, with value 100, set at compile time
+	let comptime b = f(f32, 2.5); // b is of type f32, with value 6.25, set at compile time
+	return 0;
+};
+</code></pre>
+<h1 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h1>
+<p>Well, this was a bit long, but here we cover all the core datatypes in Scribe. There is a lot more to these datatypes but that is out of scope of this manual.</p>
+<p>Take your time to understand these datatypes as they are incredibly useful and important for any programming language. Now, we will move on to functions.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="03-vars.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="05-functions.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="03-vars.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="05-functions.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Conditionals - Scribe Programming Language</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="00-intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="01-install.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="02-hello-world.html"><strong aria-hidden="true">3.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="03-vars.html"><strong aria-hidden="true">4.</strong> Variables</a></li><li class="chapter-item expanded "><a href="04-datatypes.html"><strong aria-hidden="true">5.</strong> Datatypes</a></li><li class="chapter-item expanded "><a href="05-functions.html"><strong aria-hidden="true">6.</strong> Functions</a></li><li class="chapter-item expanded "><a href="06-generics.html"><strong aria-hidden="true">7.</strong> Generics</a></li><li class="chapter-item expanded "><a href="07-conditionals.html" class="active"><strong aria-hidden="true">8.</strong> Conditionals</a></li><li class="chapter-item expanded "><a href="08-loops.html"><strong aria-hidden="true">9.</strong> Loops</a></li><li class="chapter-item expanded "><a href="09-defer.html"><strong aria-hidden="true">10.</strong> Defer</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Scribe Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="conditionals"><a class="header" href="#conditionals">Conditionals</a></h1>
+<p>Conditionals are decision making constructs in a programming language.
+Basically, if we want to perform some action based on specific condition or criteria, we use conditionals.</p>
+<p>In Scribe, there are two variants of conditionals:</p>
+<ul>
+<li>Simple Conditionals</li>
+<li>Inline Conditionals</li>
+</ul>
+<h2 id="simple-conditionals"><a class="header" href="#simple-conditionals">Simple Conditionals</a></h2>
+<p>These are the usual conditionals that exist in most programming language. In Scribe, the following syntax is followed:</p>
+<pre><code class="language-rs">if &lt;expression&gt; {
+	// do this if expression yields a truthy value
+} elif &lt;expression&gt; {
+	// do this if the first if fails, but elif's expression yields a truthy value
+} else {
+	// do this if none of the if's and elif's yield a truthy value
+}
+</code></pre>
+<p>The <code>elif</code> and <code>else</code> sections are optional and may be skipped as required.</p>
+<p>A &quot;truthy value&quot; is one of:</p>
+<ul>
+<li>boolean <code>== true</code></li>
+<li>integer <code>!= 0</code></li>
+<li>float <code>!= 0.0</code></li>
+<li>pointer <code>!= nil</code></li>
+</ul>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	if true { // boolean true is a truthy value, therefore the following block is executed
+		io.println(&quot;This is displayed&quot;);
+	}
+	let ptr: *i32 = nil;
+	if ptr { // nil is not a truthy value, therefore the else block is executed
+		io.println(&quot;Pointer points to some data&quot;);
+	} else {
+		io.println(&quot;Pointer points to no data&quot;);
+	}
+	let a = 2;
+	if a == 1 { // this condition fails therefore the following block is not executed
+		io.println(&quot;a is 1&quot;);
+	} elif a == 2 { // this condition succeeds, therefore the following block is executed
+		io.println(&quot;a is 2&quot;);
+	} else {
+		io.println(&quot;a is neither 1 nor 2&quot;);
+	}
+	return 0;
+};
+</code></pre>
+<h2 id="inline-conditionals"><a class="header" href="#inline-conditionals">Inline Conditionals</a></h2>
+<p>These are special conditionals that are evaluated at compile time.
+This means that the compiler will execute the conditional during compilation and whichever section yields a truthy value, that section will be left in the code.
+The other sections of the conditional will be removed completely.</p>
+<p>Also, if none of the sections evaluate to a truthy value, the entire conditional will be removed.</p>
+<p>Note that the conditional's block will not executed like it is during runtime. Instead, the block will be placed as long as its conditonal yields a truthy value.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let A = struct {
+	data: i32;
+};
+
+let getData in A = fn(): i32 {
+	return self.data;
+};
+
+let get = fn(from: &amp;any): i32 {
+	inline if @isEqualTy(from, A) {
+		return from.getData();
+	} elif @isEqualTy(from, i32) {
+		return from;
+	} else {
+		@compileError(&quot;Cannot return i32 from data of type: &quot;, @typeOf(from));
+	}
+};
+
+let main = fn(): i32 {
+	let a = A{5};
+	let b = 20;
+	let c = &quot;a string&quot;;
+	let a1 = get(a); // calls a.getData()
+	let b1 = get(b); // returns b
+	let c1 = get(c); // compilation fails (@compileError() is called) - c is neither an instance of A nor an i32
+	return 0;
+};
+</code></pre>
+<p>As visible from the above example, inline conditionals can be quite powerful - they allow decision making based on compile time known information.
+The code is valid because whichever condition does not hold true, the block for that conditional will be erase altogether.
+Therefore, compiler will not complain about the lack of, say, <code>getData()</code> associated function not existing, when an <code>i32</code> is passed to the function.</p>
+<h1 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h1>
+<p>Hence, we understand how conditionals in Scribe work and what all they can do.</p>
+<p>Next, we will understand about loops.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="06-generics.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="08-loops.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="06-generics.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="08-loops.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>

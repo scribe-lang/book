@@ -1,0 +1,360 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Loops - Scribe Programming Language</title>
+        <!-- Custom HTML head -->
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="00-intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="01-install.html"><strong aria-hidden="true">2.</strong> Installation</a></li><li class="chapter-item expanded "><a href="02-hello-world.html"><strong aria-hidden="true">3.</strong> Hello World!</a></li><li class="chapter-item expanded "><a href="03-vars.html"><strong aria-hidden="true">4.</strong> Variables</a></li><li class="chapter-item expanded "><a href="04-datatypes.html"><strong aria-hidden="true">5.</strong> Datatypes</a></li><li class="chapter-item expanded "><a href="05-functions.html"><strong aria-hidden="true">6.</strong> Functions</a></li><li class="chapter-item expanded "><a href="06-generics.html"><strong aria-hidden="true">7.</strong> Generics</a></li><li class="chapter-item expanded "><a href="07-conditionals.html"><strong aria-hidden="true">8.</strong> Conditionals</a></li><li class="chapter-item expanded "><a href="08-loops.html" class="active"><strong aria-hidden="true">9.</strong> Loops</a></li><li class="chapter-item expanded "><a href="09-defer.html"><strong aria-hidden="true">10.</strong> Defer</a></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Scribe Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="loops"><a class="header" href="#loops">Loops</a></h1>
+<p>Loops are sequences of code that run over and over again, usually, as long as some condition is met. They, like functions, help a lot in reducing repetitive code.</p>
+<p>For example, if we want to make a multiplication table of 12 from 1 to 10, would we write 10 statements by hand? It would look something like this:</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	io.println(&quot;12 x 1 = &quot;, 12 * 1);
+	io.println(&quot;12 x 2 = &quot;, 12 * 2);
+	io.println(&quot;12 x 3 = &quot;, 12 * 3);
+	io.println(&quot;12 x 4 = &quot;, 12 * 4);
+	io.println(&quot;12 x 5 = &quot;, 12 * 5);
+	io.println(&quot;12 x 6 = &quot;, 12 * 6);
+	io.println(&quot;12 x 7 = &quot;, 12 * 7);
+	io.println(&quot;12 x 8 = &quot;, 12 * 8);
+	io.println(&quot;12 x 9 = &quot;, 12 * 9);
+	io.println(&quot;12 x 10 = &quot;, 12 * 10);
+	return 0;
+};
+</code></pre>
+<p>That works, sure. But for sure it isn't convenient! And this is just for tables from 1-10. What about 1-100, or 1-1000? That's 1000 lines of code which is incredibly hard to maintain.</p>
+<p>That's where loops come in. The above code, using loops, could simply be written as:</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	for let i = 1; i &lt;= 10; ++i {
+		io.println(&quot;12 x &quot;, i, &quot; = &quot;, 12 * i);
+	}
+	return 0;
+};
+</code></pre>
+<p>And if we want to do this for, say, 1000, all we have to do is change the <code>i &lt;= 10</code> condition to <code>i &lt;= 1000</code>! That's all!</p>
+<p>That's a really basic example of loops, but it should paint the picture of their fundamental purpose.</p>
+<p>Each execution of the loop block is called loop iteration. As such, the above loop had 10 iterations as the loop block was executed 10 times.</p>
+<p>There are special statements that can be used with loops:</p>
+<ul>
+<li><strong>continue</strong> - This causes a loop's current iteration to be &quot;skipped&quot; from where the <code>continue</code> statement is present.</li>
+<li><strong>break</strong> - This causes a loop to stop executing from where the <code>break</code> statement is present.</li>
+</ul>
+<p>In Scribe, there are 3 varieties of loops:</p>
+<ul>
+<li>For Loops
+<ul>
+<li>Simple For Loops</li>
+<li>Inline For Loops</li>
+</ul>
+</li>
+<li>While Loops</li>
+<li>For-each Loops</li>
+</ul>
+<h2 id="for-loops"><a class="header" href="#for-loops">For Loops</a></h2>
+<p>Similar to conditionals, there are two types of for-loops:</p>
+<ul>
+<li>Simple For Loops</li>
+<li>Inline For Loops</li>
+</ul>
+<h3 id="simple-for-loops"><a class="header" href="#simple-for-loops">Simple For Loops</a></h3>
+<p>These are the most basic and standard loops that exist throughout various programming languages. These loops consist of 4 components:</p>
+<ul>
+<li><strong>Initialization</strong> - This component is used to initialize the loop, often by creating a variable. Like in the above example, we initialized <code>i</code> with value <code>1</code>. This component is executed just once, right before the loop starts.</li>
+<li><strong>Condition</strong> - This defines how many times the loop must be run. Before each loop iteration, this condition is checked. If the condition is true, the iteration occurs, otherwise the loop is stopped.</li>
+<li><strong>Increment/Decrement</strong> - This This component allows for modification in some value - often to update the variable that is being looped through (above, <code>++i</code>) after each execution of the loop block.</li>
+<li><strong>Loop Block</strong> - This is the body of the loop. Whatever we want executed multiple times comes here.</li>
+</ul>
+<p>Aside from loop block, all the other components are optional and we can also skip them all should we want to, which will make for an infinite loop - a loop that never ends.</p>
+<p>The loop block can also be empty if there is nothing to be done inside the loop.</p>
+<p>Needless to say, the loop we wrote for generating table of 12 was a simple for loop.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	let i = 0;
+	for ; ; {
+		if i &gt;= 10 { break; }
+		if i == 5 { continue; }
+		io.println(i);
+		++i;
+	}
+	return 0;
+};
+</code></pre>
+<p>The above loop will print all numbers from 0-9 (inclusive), except 5.</p>
+<h3 id="inline-for-loops"><a class="header" href="#inline-for-loops">Inline For Loops</a></h3>
+<p>Similar to inline conditionals, Scribe supports inline for loops which are executed at compile time. It requires that all the components of the loop, except the loop block, must be evaluable at compile time.</p>
+<p>Note that the loop block will not executed like it is during runtime, but instead, the block will be repeated as many times as the loop condition holds true.
+Therefore it is unwise to make large inline for loops as they will increase code size, increase compilation time, and most likely reduce code performance as well.
+An infinite inline for loop will cause the compiler to never finish compiling (and if not stopped, cause the system to run out of memory).</p>
+<p>Functions like <code>io.println()</code> are able to exist in Scribe userland (without special compiler magic) code because of variadic parameters, inline for loops, and inline conditionals.</p>
+<p>As we have seen in the Functions chapter of this manual, inline for loops can be used to iterate over a variadic parameter to work with each of the provided argument.</p>
+<p>For example, a <code>println()</code> function can be written as:</p>
+<pre><code class="language-rs">let c = @import(&quot;std/c&quot;); // imports functions from C
+let string = @import(&quot;std/string&quot;); // contains string.String and associated functions for integer to string (&lt;int&gt;.str())
+
+let println = fn(data: ...&amp;const any): i32 { // takes variadic number of arguments each of type &amp;const any (any const reference), and returns an i32
+	let comptime len = @valen();
+	let sum = 0;
+	inline for let comptime i = 0; i &lt; len; ++i {
+		inline if @isCString(data[i]) {
+			sum += c.fputs(data[i], c.stdout);
+		} elif @isCChar(data[i]) {
+			sum += c.fputc(data[i], c.stdout);
+		} elif @isEqualTy(data[i], string.String) {
+			sum += c.fputs(data[i].cStr(), c.stdout);
+		} else {
+			let s = data[i].str();
+			defer s.deinit();
+			sum += c.fputs(s.cStr(), c.stdout);
+		}
+	}
+	sum += c.fputc('\n', c.stdout);
+	return sum;
+};
+
+let main = fn(): i32 {
+	println(); // prints a newline ('\n') character
+	println(5); // none of inline if's are true, therefore else is used
+	println(&quot;Hello &quot;, 1); // first argument is a cstring, second is an integer
+	return 0;
+};
+</code></pre>
+<p>In the function, a compile time iteration (using inline for) is done over each of the variadic parameter's provided argument.
+Based on the type of that argument, we determine which function to call in order to display the data.</p>
+<p>Note that the iteration variable (here, <code>i</code>) <strong>must</strong> be created as <code>comptime</code> or the results may be undefined.</p>
+<h2 id="while-loops"><a class="header" href="#while-loops">While Loops</a></h2>
+<p>Unlike for loops which consist of 4 components, while loops consist of just 2 - loop condition and loop body.
+In a sense, these can be considered a subset of for loops, simply providing a cleaner approach for creating a loop when only the condition is involved.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+
+let main = fn(): i32 {
+	let i = 0;
+	while i &lt; 10 {
+		if i == 5 { continue; }
+		io.println(i++);
+	}
+	return 0;
+};
+</code></pre>
+<p>There is no <code>inline</code> variant for while loops.</p>
+<h2 id="for-each-loops"><a class="header" href="#for-each-loops">For-each Loops</a></h2>
+<p>These loops are generally used to list over items in a data structure. At the end of the day, they are syntactic sugar which are transformed by the compiler into simple for loops.</p>
+<p>For example,</p>
+<pre><code class="language-rs">let io = @import(&quot;std/io&quot;);
+let vec = @import(&quot;std/vec&quot;);
+
+let main = fn(): i32 {
+	let v = vec.new(i32, true);
+	defer v.deinit(); // we'll come to defer in the next chapter
+	for let i = 0; i &lt; 10; ++i {
+		v.push(i);
+	}
+	for e in v.each() { // iterates over each element, the reference of which is in variable 'e'
+		io.println(e);
+	}
+	for e in v.eachRev() { // iterates over each element, in reverse
+		io.println(e);
+	}
+	for e in v.each() {
+		e = e + 1; // since e is a reference to an element in the vector, it can be modified
+	}
+	io.println(v);
+	return 0;
+};
+</code></pre>
+<p>There are some requirements that must be met in order to use for-each loops on your own structure (type):</p>
+<ul>
+<li>
+<p>The iterator generation function (here, <code>each()</code>, and <code>eachRev()</code>) must return an iteration structure (here <code>iter.Iter</code>, see <a href="https://github.com/scribe-lang/scribe/blob/main/headers/std/iter.sc">std/iter</a>) that contains the following functions:</p>
+<ul>
+<li><code>begin(): E</code></li>
+<li><code>end(): E</code></li>
+<li><code>next(E): E</code></li>
+<li><code>at(E): &amp;any</code></li>
+</ul>
+<p>Where, <code>E</code> is the iteration counter, and <code>any</code> is the data (usually reference) that should be stored in the for each iteration variable (<code>e</code>).</p>
+</li>
+<li>
+<p>The structure (type) must contain a function with signature as <code>at(E): D</code>, where <code>E</code> is the iteration counter (index for a vector), and <code>D</code> is the returned data against the iteration counter (element reference for a vector).</p>
+</li>
+</ul>
+<p>Once these conditions are met, any custom datatype (structure) can be used with a for-each loop.</p>
+<p>As with <code>while</code> loops, there is no <code>inline</code> variant for for-each loops.</p>
+<h1 id="conclusion"><a class="header" href="#conclusion">Conclusion</a></h1>
+<p>Here we learn about the various types of loops in Scribe, and their usage.
+Next up, we will understand an interesting Scribe feature - <code>defer</code>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="07-conditionals.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                            <a rel="next" href="09-defer.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="07-conditionals.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                    <a rel="next" href="09-defer.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+            </nav>
+
+        </div>
+
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+    </body>
+</html>
